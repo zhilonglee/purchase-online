@@ -26,6 +26,7 @@
         <module>spring-cloud-microservice-frontend</module>
 		<module>spring-cloud-microservice-api-gateway</module>
         <module>spring-cloud-microservice-config</module>
+        <module>spring-cloud-microservice-config-client</module>
     </modules>
 
     <properties>

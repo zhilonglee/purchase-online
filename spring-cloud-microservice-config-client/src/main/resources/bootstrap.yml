@@ -1,0 +1,36 @@
+eureka:
+  client:
+    healthcheck:
+      enabled: false #true
+    service-url:
+      defaultZone: http://admin:admin@localhost:8761/eureka #http://peer1:8761/eureka,http://peer2:8762/eureka
+    fetchRegistry: true
+  instance:
+    prefer-ip-address: true
+    instanceId: ${spring.application.name}:${eureka.instance.hostname}:${server.port}
+    hostname: localhost
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      #uri: http://localhost:8200/
+      profile: uat
+      label: master
+      fail-fast: true
+      # username: admin
+      # password: admin
+      retry:
+        initial-interval: 2000
+        max-interval: 10000
+        multiplier: 2
+        max-attempts: 10
+      discovery:
+        enabled: true
+        service-id: config-server
+      name: config-server
+    bus:
+      trace:
+        enabled: true
+  rabbitmq:
+    host: 192.168.137.10
