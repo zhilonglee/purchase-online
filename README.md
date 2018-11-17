@@ -47,13 +47,13 @@ Currently, nothing bug is recorded.
 ### _spring-cloud-microservice-config_ 
 Currently, nothing bug is recorded.
 ### _spring-cloud-microservice-config-client_
-##### **1.Even with URL configuration, the config client server still get the configuration from http://localhost:8888**
+#### **1.Even with URL configuration, the config client server still get the configuration from http://localhost:8888**
 It's actually a configuration file priority issue;There is a bootstrap context within SpringCloud, mainly for loading remote configuration, which is inside Config Server.
 In other word, loading the configuration is fetching from Config Server, the default context loading order is:  bootstrap.* -> Remote configuration -> application.*;
 
 **Solution:**  move spring.cloud.config.uri: http://localhost:8200/ from application.yml to bootstrap.yml
 
-##### **2.java.lang.IllegalArgumentException: Could not resolve placeholder 'profile' in value ${profile}**
+#### **2.java.lang.IllegalArgumentException: Could not resolve placeholder 'profile' in value ${profile}**
 The HTTP service has resources in the form:
 * **_/{application}/{profile}[/{label}]_**
 * **_/{application}-{profile}.yml_**
