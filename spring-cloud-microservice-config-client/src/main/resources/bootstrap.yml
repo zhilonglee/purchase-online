@@ -34,3 +34,8 @@ spring:
         enabled: true
   rabbitmq:
     host: 192.168.137.10
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

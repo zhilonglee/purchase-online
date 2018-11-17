@@ -28,3 +28,8 @@ spring:
 #    user:
 #      name: admin
 #      password: admin
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

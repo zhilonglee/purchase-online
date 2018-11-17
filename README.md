@@ -63,6 +63,18 @@ The HTTP service has resources in the form:
 
 **Solution:**  Add property spring.cloud.config.name = config-server(There are config-server-{profile}.yml files in URL https://github.com/zhilonglee/purchase-online/spring-cloud-microservice-config-repo/)
 
+#### **3.How to configure the config-client server to update automatically**
+* add spring-cloud-starter-bus-amqp and spring-boot-starter-actuator dependencies
+Using rabbitMQ as Message Oriented Middleware communicant with Git.Dependency actuator is used to explode /actuator/bus-refresh endpoint.
+* Both the server and client services are configured:
+management.endpoints.web.exposure.include=bus-refresh
+
+But still have issues:
+Dispatcher has no subscribers for channel 'config-sever(config-client)-1.springCloudBusOutput
+Spring Team says "Greenwich.M1 is not compatible with boot 2.1.0.RELEASE".
+##### **Have no alternative but to ignore this bug.**
+
+
 ## Reference documentation
 * [Spring Boot(version 2.1.0.RELEASE)](https://docs.spring.io/spring-boot/docs/2.1.0.RELEASE/reference/htmlsingle/)
 * [Spring Security(version 5.1.1.RELEASE)](https://docs.spring.io/spring-security/site/docs/5.1.1.RELEASE/reference/htmlsingle/)
