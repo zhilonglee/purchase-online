@@ -20,7 +20,7 @@ This project is a micro service project based on Spring Boot, Spring Cloud, Spri
 * Spring Cloud OAuth2 - adds Security controls to your application based on Spring Security and OAuth2 Security toolkits.
 * Spring Boot Admin - codecentric’s Spring Boot Admin is a community project to manage and monitor your Spring Boot ® applications. 
 
-## application architecture
+## Application Architecture
 
 * spring-cloud-microservice-eureka - Service registration and discovery using eureka server
 * spring-cloud-microservice-monitor -  The applications register with our Spring Boot Admin Client (via HTTP) or are discovered using Spring Cloud ® (e.g. Eureka, Consul). The UI is just an AngularJs application on top of the Spring Boot Actuator endpoints.
