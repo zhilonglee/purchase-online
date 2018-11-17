@@ -71,7 +71,7 @@ management.endpoints.web.exposure.include=bus-refresh
 
 But still have issues:
 Dispatcher has no subscribers for channel 'config-sever(config-client)-1.springCloudBusOutput
-Spring Team says "Greenwich.M1 is not compatible with boot 2.1.0.RELEASE".
+Spring Team says "Greenwich.M1 is not compatible with boot 2.1.0.RELEASE".(Link : https://github.com/spring-cloud/spring-cloud-bus/issues/137)
 ##### **Have no alternative but to ignore this bug.**
 
 
