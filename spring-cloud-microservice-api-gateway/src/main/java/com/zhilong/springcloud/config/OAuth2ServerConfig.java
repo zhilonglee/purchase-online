@@ -50,8 +50,9 @@ public class OAuth2ServerConfig {
                     .and()
                     .authorizeRequests()
 //                    .antMatchers("/product/**").access("#oauth2.hasScope('select') and hasPermission('delete')")
-                    .antMatchers("/user-provider/v1/person/register",
-                    "/user-provider/v1/person/active/**",
+                    .antMatchers("/user-provider/v2/api-docs",
+                            "/user-provider/v1/person/register",
+                            "/user-provider/v1/person/active/**",
                             "/user-provider/v1/person/resetpassword/**",
                             "/user-provider/v1/person/newpassword/**",
                             "/user-provider/v1/person/oauth/**").permitAll()

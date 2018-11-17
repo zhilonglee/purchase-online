@@ -74,6 +74,9 @@ Dispatcher has no subscribers for channel 'config-sever(config-client)-1.springC
 Spring Team says "Greenwich.M1 is not compatible with boot 2.1.0.RELEASE".(Link : https://github.com/spring-cloud/spring-cloud-bus/issues/137)
 ##### **Have no alternative but to ignore this bug.**
 
+## Swagger UI
+* spring-cloud-microservice-user-provider: http://localhost:8100/swagger-ui.html
+* spring-cloud-microservice-api-gateway: http://localhost:8042/swagger-ui.html (Zuul API-GATEWAY integration with Swagger2)
 
 ## Reference documentation
 * [Spring Boot(version 2.1.0.RELEASE)](https://docs.spring.io/spring-boot/docs/2.1.0.RELEASE/reference/htmlsingle/)

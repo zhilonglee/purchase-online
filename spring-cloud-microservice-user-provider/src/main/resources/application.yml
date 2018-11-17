@@ -40,17 +40,19 @@ eureka:
     prefer-ip-address: true
     instanceId: ${spring.application.name}:${eureka.instance.hostname}:${server.port}
     hostname: localhost
-management:
-  endpoint:
-    health:
-      show-details: always
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+#management:
+#  endpoint:
+#    health:
+#      show-details: always
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
 info:
   app:
     name: ${spring.application.name}
     java:
       source: ${java.version}
       target: ${java.version}
+swagger:
+  base-package: com.zhilog.spring.cloud.api
