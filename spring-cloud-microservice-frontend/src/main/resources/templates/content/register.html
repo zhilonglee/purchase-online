@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Purchase Online</title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+    <script th:src="@{js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{js/bootstrap.min.js}"></script>
+    <script th:src="@{js/module/user.js}"></script>
+</head>
+<body style="background-color: #f5f5f5;">
+<div id="login">
+    <div class="container">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-4">
+                    <image  th:src="@{img/logo.png}"></image>
+    <h1><a href="/index.html" title="Purchase Online" tabindex="-1">Purchase Online</a></h1>
+    <form name="registerform" id="registerform">
+        <p>
+            <label for="username">User Name<br>
+                <input type="text" name="username" id="username" class="form-control" value="" size="25" required="required"></label>
+        </p>
+        <p>
+            <label for="email">Email<br>
+                <input type="email" name="email" id="email" class="form-control" value="" size="25" required="required"></label>
+        </p>
+        <p>
+            <label for="password">Password<br>
+                <input type="password" name="password" id="password" class="form-control" value="" size="25" required="required"></label>
+        </p>
+        <p>
+            <label for="confirmpassword">Confirm Password<br>
+                <input type="password" name="confirmpassword" id="confirmpassword" class="form-control" value="" size="25" required="required"></label>
+        </p>
+        <p id="reg_passmail" class="label label-info">The registration confirmation letter will be sent to you.</p>
+        <br/>
+        <br class="clear">
+        <p class="submit"><input type="button" name="submit" id="submit" onclick="USER.register()" class="btn btn-primary" value="Register"></p>
+    </form>
+
+    <p id="nav">
+        <a href="/login.html" class="btn-link">Login</a>
+        | <a href="/resetpassword.html" class="btn-link">Forgot your password?</a>
+    </p>
+
+    <p id="backtoblog"><a href="/index.html" class="btn-link">← Return to Home Page.</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{views/footer :: my_footer}"></div>
+</body>
+</html>

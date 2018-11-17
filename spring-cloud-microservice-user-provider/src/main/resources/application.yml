@@ -1,0 +1,56 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver #com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/zhilong?useUnicode=true&characterEncoding=utf-8&transformedBitIsBoolean=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&autoReconnect=true&failOverReadOnly=false&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: root123
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  mail:
+    host: localhost
+    port: 25
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+
+logging:
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    com.zhilong: DEBUG
+eureka:
+  client:
+    healthcheck:
+      enabled: false #true
+    service-url:
+      defaultZone: http://admin:admin@localhost:8761/eureka #http://peer1:8761/eureka,http://peer2:8762/eureka
+    fetchRegistry: true
+  instance:
+    prefer-ip-address: true
+    instanceId: ${spring.application.name}:${eureka.instance.hostname}:${server.port}
+    hostname: localhost
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+info:
+  app:
+    name: ${spring.application.name}
+    java:
+      source: ${java.version}
+      target: ${java.version}

@@ -1,0 +1,19 @@
+server:
+  port: 8761
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:${server.port}/eureka
+  server:
+    enable-self-preservation: true
+  instance:
+    # prefer-ip-address: true
+    hostname: localhost
+    # ip-address: 127.0.0.1
+spring:
+  security:
+    user:
+      name: admin
+      password: admin

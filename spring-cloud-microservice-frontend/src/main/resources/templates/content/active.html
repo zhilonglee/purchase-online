@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Purchase Online</title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+    <script th:src="@{js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{js/bootstrap.min.js}"></script>
+    <script th:src="@{js/module/user.js}"></script>
+    <script>
+
+
+        function getParameter(sProp) {
+            var re = new RegExp(sProp + "=([^\&]*)", "i");
+            var a = re.exec(document.location.search);
+            if (a == null)
+                return null;
+            return a[1];
+        };
+
+        $(document).ready(function () {
+            setInterval(function(){
+                var time = $("#remain-seconds").html();
+                console.log("time : " + time);
+                if (time > 0) {
+                    $("#remain-seconds").html(time - 1);
+                }
+            },1000);
+            setTimeout(function () {
+                var activeToken = getParameter('token');
+                USER.active(activeToken);
+            },5000);
+        });
+    </script>
+</head>
+<body style="background-color: #f5f5f5;">
+<div class="container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+    <div class="jumbotron">
+        <h1>Welcome to the Activation Site.</h1>
+        <p>The activate operation will be performed automatically after 5 seconds.</p>
+        <p id="remain-seconds" class="center-block">5</p>
+        <p><a class="btn btn-primary btn-lg" th:href="@{login.html}" role="button">
+            Login</a>
+        </p>
+    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{views/footer :: my_footer}"></div>
+</body>
+</html>

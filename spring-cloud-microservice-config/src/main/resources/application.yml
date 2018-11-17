@@ -1,0 +1,29 @@
+server:
+  port: 8200
+eureka:
+  client:
+    healthcheck:
+      enabled: false #true
+    service-url:
+      defaultZone: http://admin:admin@localhost:8761/eureka #http://peer1:8761/eureka,http://peer2:8762/eureka
+    fetchRegistry: true
+  instance:
+    prefer-ip-address: true
+    instanceId: ${spring.application.name}:${eureka.instance.hostname}:${server.port}
+    hostname: localhost
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/zhilonglee/purchase-online
+          search-paths: spring-cloud-microservice-config-repo
+          username:
+          password:
+          force-pull: true
+  rabbitmq:
+    host: 192.168.137.10
+  security:
+    user:
+      name: admin
+      password: admin

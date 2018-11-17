@@ -1,0 +1,18 @@
+server:
+  port: 8082
+  servlet:
+    session:
+      timeout: 20m
+spring:
+  mvc:
+    pathmatch:
+      use-suffix-pattern: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver # com.mysql.jdbc.Driver
+    password: root123
+    username: root
+    url: jdbc:mysql://localhost:3306/zhilong?useUnicode=true&characterEncoding=utf-8&transformedBitIsBoolean=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&autoReconnect=true&failOverReadOnly=false&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+  redis:
+    host: 192.168.137.10
+  application:
+    name: purchase-onlie
