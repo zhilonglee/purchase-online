@@ -54,5 +54,3 @@ info:
     java:
       source: ${java.version}
       target: ${java.version}
-swagger:
-  base-package: com.zhilog.spring.cloud.api

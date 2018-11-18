@@ -9,6 +9,9 @@ import com.zhilong.springcloud.service.EmailService;
 import com.zhilong.springcloud.service.Oauth2Service;
 import com.zhilong.springcloud.service.PersonService;
 import com.zhilong.springcloud.utils.EncryptAndDecryptUtils;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +51,11 @@ public class PersonController {
         this.oauth2Service = oauth2Service;
     }
 
+    @ApiOperation(value="Get All users list", notes="Give parameter page and size if you are paging")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", value = "page", required = false, dataType = "Integer"),
+            @ApiImplicitParam(name = "size", value = "size", required = false, dataType = "Integer")
+    })
     @RequestMapping(value = "/all", method = {RequestMethod.GET})
     public HttpEntity all(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", required = false) Integer size) {
         List<Person> all = null;
