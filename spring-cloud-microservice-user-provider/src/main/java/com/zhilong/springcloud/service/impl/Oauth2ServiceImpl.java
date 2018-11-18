@@ -6,7 +6,6 @@ import com.zhilong.springcloud.entity.JsonResult;
 import com.zhilong.springcloud.entity.TokenResponse;
 import com.zhilong.springcloud.service.Oauth2Service;
 import com.zhilong.springcloud.utils.RedisUtils;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,6 +5,7 @@ import com.zhilong.springcloud.entity.JsonResult;
 import com.zhilong.springcloud.entity.Person;
 import com.zhilong.springcloud.entity.enu.Status;
 import com.zhilong.springcloud.entity.enu.TokenMoudle;
+import com.zhilong.springcloud.fegin.ConfigClientFeginClient;
 import com.zhilong.springcloud.service.EmailService;
 import com.zhilong.springcloud.service.Oauth2Service;
 import com.zhilong.springcloud.service.PersonService;
@@ -44,6 +45,9 @@ public class PersonController {
     EmailService emailService;
 
     Oauth2Service oauth2Service;
+
+    @Autowired
+    ConfigClientFeginClient configClientFeginClient;
 
     public PersonController(PersonService personService, EmailService emailService, Oauth2Service oauth2Service) {
         this.personService = personService;
@@ -225,6 +229,12 @@ public class PersonController {
     @PostMapping("/oauth/token/extend/{username}")
     public JsonResult extendToken(@PathVariable("username") String username) {
         return oauth2Service.extendToken(username);
+    }
+
+    @GetMapping("/profile")
+    public JsonResult getProfile(){
+        String profile = configClientFeginClient.getProfile();
+        return JsonResult.ok(profile);
     }
 
 }
