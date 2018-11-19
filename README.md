@@ -31,6 +31,14 @@ This project is a micro service project based on Spring Boot, Spring Cloud, Spri
 * spring-cloud-microservice-config - config server using spring-cloud-config
 * spring-cloud-microservice-config-repo - config repository store the configurations on remote Git 
 * spring-cloud-microservice-config-client - fetch configs from config server
+## Note
+**1. Springcloud provides a service-registry actuator that can be used to view or change the status of the current service's Registration in the service registry.For eureka, these states are UP,DOWN,OUT_OF_SERVICE,UNKNOWN.** 
+> *  Http Method : POST 
+> * URL: /actuator/service-registry
+> * Request Body: {"status":"DOWN"} 
+## Swagger UI
+* spring-cloud-microservice-user-provider: http://localhost:8100/swagger-ui.html
+* spring-cloud-microservice-api-gateway: http://localhost:8042/swagger-ui.html (Zuul API-GATEWAY integration with Swagger2)
 ## Bug Fixes
 ### _spring-cloud-microservice-eureka_
 Currently, nothing bug is recorded.
@@ -47,40 +55,30 @@ Currently, nothing bug is recorded.
 ### _spring-cloud-microservice-config_ 
 Currently, nothing bug is recorded.
 ### _spring-cloud-microservice-config-client_
-#### **1.Even with URL configuration, the config client server still get the configuration from http://localhost:8888**
-It's actually a configuration file priority issue;There is a bootstrap context within SpringCloud, mainly for loading remote configuration, which is inside Config Server.
+**1.Even with URL configuration, the config client server still get the configuration from http://localhost:8888**
+> It's actually a configuration file priority issue;There is a bootstrap context within SpringCloud, mainly for loading remote configuration, which is inside Config Server.
 In other word, loading the configuration is fetching from Config Server, the default context loading order is:  bootstrap.* -> Remote configuration -> application.*;
 
 **Solution:**  move spring.cloud.config.uri: http://localhost:8200/ from application.yml to bootstrap.yml
 
-#### **2.java.lang.IllegalArgumentException: Could not resolve placeholder 'profile' in value ${profile}**
-The HTTP service has resources in the form:
-* **_/{application}/{profile}[/{label}]_**
-* **_/{application}-{profile}.yml_**
-* **_/{label}/{application}-{profile}.yml_**
-* **_/{application}-{profile}.properties_**
-* **_/{label}/{application}-{profile}.properties_**
+**2.java.lang.IllegalArgumentException: Could not resolve placeholder 'profile' in value ${profile}**
+>The HTTP service has resources in the form:
+>* **_/{application}/{profile}[/{label}]_**
+>* **_/{application}-{profile}.yml_**
+>* **_/{label}/{application}-{profile}.yml_**
+>* **_/{application}-{profile}.properties_**
+>* **_/{label}/{application}-{profile}.properties_**
+>>**Solution:**  Add property spring.cloud.config.name = config-server(There are config-server-{profile}.yml files in URL https://github.com/zhilonglee/purchase-online/spring-cloud-microservice-config-repo/)
 
-**Solution:**  Add property spring.cloud.config.name = config-server(There are config-server-{profile}.yml files in URL https://github.com/zhilonglee/purchase-online/spring-cloud-microservice-config-repo/)
-
-#### **3.How to configure the config-client server to update automatically**
-* add spring-cloud-starter-bus-amqp and spring-boot-starter-actuator dependencies
+**3.How to configure the config-client server to update automatically**
+>* add spring-cloud-starter-bus-amqp and spring-boot-starter-actuator dependencies
 Using rabbitMQ as Message Oriented Middleware communicant with Git.Dependency actuator is used to explode /actuator/bus-refresh endpoint.
-* Both the server and client services are configured:
+>* Both the server and client services are configured:
 management.endpoints.web.exposure.include=bus-refresh
-
-But still have issues:
+>>But still have issues:
 Dispatcher has no subscribers for channel 'config-sever(config-client)-1.springCloudBusOutput
 Spring Team says "Greenwich.M1 is not compatible with boot 2.1.0.RELEASE".(Link : https://github.com/spring-cloud/spring-cloud-bus/issues/137)
 ##### **Have no alternative but to ignore this bug.**
-## Note
-**1. Springcloud provides a service-registry actuator that can be used to view or change the status of the current service's Registration in the service registry.For eureka, these states are UP,DOWN,OUT_OF_SERVICE,UNKNOWN.** 
-> *  Http Method : POST 
-> * URL: /actuator/service-registry
-> * Request Body: {"status":"DOWN"} 
-## Swagger UI
-* spring-cloud-microservice-user-provider: http://localhost:8100/swagger-ui.html
-* spring-cloud-microservice-api-gateway: http://localhost:8042/swagger-ui.html (Zuul API-GATEWAY integration with Swagger2)
 
 ## Reference documentation
 * [Spring Boot(version 2.1.0.RELEASE)](https://docs.spring.io/spring-boot/docs/2.1.0.RELEASE/reference/htmlsingle/)
