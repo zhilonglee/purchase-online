@@ -32,4 +32,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: bus-refresh
+        include: ["health","info","bus-refresh"]

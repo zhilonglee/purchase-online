@@ -1,5 +1,5 @@
 # purchase-online
-
+![logo](https://github.com/zhilonglee/purchase-online/blob/master/spring-cloud-microservice-frontend/src/main/resources/static/img/logo.png)
 ## Introduce
 This project is a micro service project based on Spring Boot, Spring Cloud, Spring Oauth2 and Spring Cloud Netflix.
 
@@ -73,7 +73,11 @@ But still have issues:
 Dispatcher has no subscribers for channel 'config-sever(config-client)-1.springCloudBusOutput
 Spring Team says "Greenwich.M1 is not compatible with boot 2.1.0.RELEASE".(Link : https://github.com/spring-cloud/spring-cloud-bus/issues/137)
 ##### **Have no alternative but to ignore this bug.**
-
+## Note
+**1. Springcloud provides a service-registry actuator that can be used to view or change the status of the current service's Registration in the service registry.For eureka, these states are UP,DOWN,OUT_OF_SERVICE,UNKNOWN.** 
+> *  Http Method : POST 
+> * URL: /actuator/service-registry
+> * Request Body: {"status":"DOWN"} 
 ## Swagger UI
 * spring-cloud-microservice-user-provider: http://localhost:8100/swagger-ui.html
 * spring-cloud-microservice-api-gateway: http://localhost:8042/swagger-ui.html (Zuul API-GATEWAY integration with Swagger2)
