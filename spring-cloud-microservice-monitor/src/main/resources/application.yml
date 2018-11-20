@@ -5,7 +5,17 @@ spring:
     user:
       name: admin
       password: admin
-
+  mail:
+    host: localhost
+    port: 25
+  boot:
+    admin:
+      notify:
+        mail:
+          to: ["zhilong.li1995@gmail.com"]
+          cc: ["autoreply@puchaseonline.com"]
+          from: noreply@localhost
+          enabled: true
 eureka:
   instance:
     leaseRenewalIntervalInSeconds: 10

@@ -1,10 +1,10 @@
 var USER = {
     request : {
-        access_token_url: "http://localhost:8042/user-provider/v1/person/oauth/token",
-        register_url : "http://localhost:8042/user-provider/v1/person/register",
-        active_url : "http://localhost:8042/user-provider/v1/person/active",
-        reset_password_url : "http://localhost:8042/user-provider/v1/person/resetpassword",
-        new_password_url : "http://localhost:8042/user-provider/v1/person/newpassword"
+        access_token_url: "http://localhost:8042/user/v1/person/oauth/token",
+        register_url : "http://localhost:8042/user/v1/person/register",
+        active_url : "http://localhost:8042/user/v1/person/active",
+        reset_password_url : "http://localhost:8042/user/v1/person/resetpassword",
+        new_password_url : "http://localhost:8042/user/v1/person/newpassword"
     },
     getParameter : function(sProp) {
     var re = new RegExp(sProp + "=([^\&]*)", "i");

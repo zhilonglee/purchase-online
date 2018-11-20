@@ -1,4 +1,4 @@
-package com.zhilong.springcloud.api;
+package com.zhilong.springcloud.controller;
 
 import com.zhilong.springcloud.config.CustomizeConfig;
 import com.zhilong.springcloud.entity.JsonResult;
