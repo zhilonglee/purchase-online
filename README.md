@@ -31,13 +31,24 @@ This project is a micro service project based on Spring Boot, Spring Cloud, Spri
 * spring-cloud-microservice-config - config server using spring-cloud-config
 * spring-cloud-microservice-config-repo - config repository store the configurations on remote Git 
 * spring-cloud-microservice-config-client - fetch configs from config server
+* spring-cloud-microservice-item - Item module, to list all kinds of items, and do related operations
+* spring-cloud-microservice-upload - Upload file module. Currently, the system has implements transfer file from local to SFTP server
 ## Note
 **1. Springcloud provides a service-registry actuator that can be used to view or change the status of the current service's Registration in the service registry.For eureka, these states are UP,DOWN,OUT_OF_SERVICE,UNKNOWN.** 
 > *  Http Method : POST 
 > * URL: /actuator/service-registry
 > * Request Body: {"status":"DOWN"} 
+>>
+**2. How to use Spring Integration for uploading files to a remote SFTP server?**
+> Quick overview:
+>>      Create SFTP Session Factory, i.e. [DefaultSftpSessionFactory]
+>>      Create and setup [SftpMessageHandler]
+>>      Create [UploadGateway] as an entry point to upload any file
+
 ## Swagger UI
 * spring-cloud-microservice-user-provider: http://localhost:8100/swagger-ui.html
+* spring-cloud-microservice-upload: http://localhost:8110/swagger-ui.html
+* spring-cloud-microservice-item: http://localhost:8120/swagger-ui.html
 * spring-cloud-microservice-api-gateway: http://localhost:8042/swagger-ui.html (Zuul API-GATEWAY integration with Swagger2)
 ## Bug Fixes
 ### _spring-cloud-microservice-eureka_
@@ -80,7 +91,10 @@ Dispatcher has no subscribers for channel 'config-sever(config-client)-1.springC
 Spring Team says "Greenwich.M1 is not compatible with boot 2.1.0.RELEASE".(Link : https://github.com/spring-cloud/spring-cloud-bus/issues/137)
 >>
 >**Have no alternative but to ignore this bug.**
-
+### _spring-cloud-microservice-item_ 
+Currently, nothing bug is recorded.
+### _spring-cloud-microservice-upload_
+Currently, nothing bug is recorded.
 ## Reference documentation
 * [Spring Boot(version 2.1.0.RELEASE)](https://docs.spring.io/spring-boot/docs/2.1.0.RELEASE/reference/htmlsingle/)
 * [Spring Security(version 5.1.1.RELEASE)](https://docs.spring.io/spring-security/site/docs/5.1.1.RELEASE/reference/htmlsingle/)
