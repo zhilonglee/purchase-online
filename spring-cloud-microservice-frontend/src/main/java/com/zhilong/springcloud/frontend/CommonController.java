@@ -132,7 +132,7 @@ public class CommonController {
                     String username = (String)session.getAttribute("username");
                     if (username != null && username != "") {
                         responseEntity = restTemplate.postForObject(
-                                "http://localhost:8042/user-provider/v1/person/oauth/token/extend/" +
+                                "http://localhost:8042/user/v1/person/oauth/token/extend/" +
                                         username,
                                 null,
                                 String.class);

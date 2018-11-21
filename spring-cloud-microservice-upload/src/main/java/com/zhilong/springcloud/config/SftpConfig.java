@@ -88,4 +88,11 @@ public class SftpConfig {
 
     }
 
+    public String getSftpHost() {
+        return sftpHost;
+    }
+
+    public String getSftpRemoteDirectory() {
+        return sftpRemoteDirectory;
+    }
 }

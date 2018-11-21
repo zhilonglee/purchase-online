@@ -19,6 +19,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import javax.sql.DataSource;
 
@@ -49,14 +50,14 @@ public class OAuth2ServerConfig {
                     .anonymous()
                     .and()
                     .authorizeRequests()
-//                    .antMatchers("/product/**").access("#oauth2.hasScope('select') and hasPermission('delete')")
-                    .antMatchers("/user-provider/v2/api-docs",
-                            "/user-provider/v1/person/register",
-                            "/user-provider/v1/person/active/**",
-                            "/user-provider/v1/person/resetpassword/**",
-                            "/user-provider/v1/person/newpassword/**",
-                            "/user-provider/v1/person/oauth/**").permitAll()
-                    .antMatchers("/user-provider/**").authenticated();
+                    .antMatchers("/user/v2/api-docs",
+                            "/user/v1/person/register",
+                            "/user/v1/person/active/**",
+                            "/user/v1/person/resetpassword/**",
+                            "/user/v1/person/newpassword/**",
+                            "/user/v1/person/oauth/**",
+                            "/upload/**").permitAll()
+                    .antMatchers("/user/**").authenticated();
             // @formatter:on
         }
     }
@@ -97,7 +98,7 @@ public class OAuth2ServerConfig {
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
             endpoints
-                    //.tokenStore(new RedisTokenStore(redisConnectionFactory))
+                    .tokenStore(new RedisTokenStore(redisConnectionFactory))
                     .tokenStore(new JdbcTokenStore(dataSource))
                     .authenticationManager(authenticationManager)
                     .userDetailsService(userDetailsService)

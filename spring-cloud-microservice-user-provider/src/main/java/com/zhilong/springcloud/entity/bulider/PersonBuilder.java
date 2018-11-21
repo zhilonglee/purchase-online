@@ -22,9 +22,6 @@ public class PersonBuilder extends EntityBuilderAdapter<Person> {
         if (source.getBirthDay() != null) {
             target.setBirthDay(source.getBirthDay());
         }
-        if (source.getBirthDay() != null) {
-            target.setBirthDay(source.getBirthDay());
-        }
         if (source.getEmail() != null) {
             target.setEmail(source.getEmail());
         }

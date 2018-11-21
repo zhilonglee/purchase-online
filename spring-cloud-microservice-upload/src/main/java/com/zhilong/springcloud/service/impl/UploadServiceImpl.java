@@ -1,16 +1,20 @@
 package com.zhilong.springcloud.service.impl;
 
+import com.zhilong.springcloud.config.SftpConfig;
 import com.zhilong.springcloud.service.UploadService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.*;
-import java.nio.file.Path;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import static com.zhilong.springcloud.config.SftpConfig.UploadGateway;
 
 
@@ -18,6 +22,9 @@ import static com.zhilong.springcloud.config.SftpConfig.UploadGateway;
 public class UploadServiceImpl implements UploadService {
 
     private static Logger logger = LoggerFactory.getLogger(UploadServiceImpl.class);
+
+    @Autowired
+    private SftpConfig sftpConfig;
 
     @Value("${sftp.local.directory:D:/note/}")
     private String sftpLocalDirectory;
@@ -27,7 +34,7 @@ public class UploadServiceImpl implements UploadService {
 
 
     @Override
-    public HttpEntity uploadFileViaSftp(MultipartFile multipartFile) {
+    public ResponseEntity<String> uploadFileViaSftp(MultipartFile multipartFile) {
         String originalFilename = multipartFile.getOriginalFilename();
         File file = null;
         BufferedOutputStream bos = null;
@@ -46,8 +53,8 @@ public class UploadServiceImpl implements UploadService {
 
             // upload the file from local server to sftp server
             uploadGateway.upload(file);
-
-            responseEntity = ResponseEntity.ok("Upload Successfully!");
+            String path = sftpConfig.getSftpHost() + "/" + originalFilename;
+            responseEntity = ResponseEntity.ok(path);
 
         } catch (Exception e) {
             logger.error("",e);

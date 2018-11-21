@@ -1,6 +1,7 @@
-package com.zhilong.springcloud.config.entity;
+package com.zhilong.springcloud.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -31,6 +32,7 @@ public class Item {
     @Column
     private BigDecimal price;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Column
     private String image;
 
@@ -45,4 +47,11 @@ public class Item {
     @DateTimeFormat(pattern = "yyyy MM dd HH:mm:ss")
     @Column(columnDefinition = "datetime comment 'create date'")
     private Date createDate;
+
+    public Item() {
+    }
+
+    public Item(String image) {
+        this.image = image;
+    }
 }

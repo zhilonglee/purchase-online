@@ -4,7 +4,8 @@ import com.zhilong.springcloud.service.UploadService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,9 +19,9 @@ public class UploadController {
     @Autowired
     UploadService uploadService;
 
-    @PostMapping("file")
+    @PostMapping(value = "/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ApiOperation(value = "Upload file")
-    public HttpEntity fileUpload(@ApiParam(value = "File", required = true) @RequestParam(value = "file",required = true) MultipartFile file) {
+    public ResponseEntity<String> fileUpload(@ApiParam(value = "File", required = true) @RequestParam(value = "file",required = true) MultipartFile file) {
         return uploadService.uploadFileViaSftp(file);
     }
 }
