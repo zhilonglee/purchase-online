@@ -95,7 +95,7 @@ Spring Team says "Greenwich.M1 is not compatible with boot 2.1.0.RELEASE".(Link 
 **1.Could not parse multipart servlet request; nested exception is java.io.IOException: org.apache.tomcat.util.http.fileupload.FileUploadException: the request was rejected because no multipart boundary was found**
 >* Case : when I use fegin client to call other server upload service , I encountered this error.
 >* Solution: Using @RequestPart to replace @RequestParam before {MultipartFile} parameter
->* Info: @RequestPart Annotation that can be used to associate the part of a "multipart/form-data" request with a method argument. 
+>* @RequestPart Annotation that can be used to associate the part of a "multipart/form-data" request with a method argument. 
 ### _spring-cloud-microservice-upload_
 Currently, nothing bug is recorded.
 ## Reference documentation
