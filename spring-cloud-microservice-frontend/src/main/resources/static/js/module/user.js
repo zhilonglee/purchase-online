@@ -246,10 +246,29 @@ register : function () {
                 console.log("Request URL : " + USER.request.access_token_url);
             },
             success: function (data) {
-                console.log(data);
+                setTimeout(function () {
+                    $('.login').removeClass('testtwo'); // remove pan effect
+                }, 2000);
+                setTimeout(function () {
+                    $('.login').removeClass('test'); // remove tilt effect
+                    if (data.access_token != '') {
+                        //sucess
+                        $('.login div').fadeOut(100);
+                        //submit form
+                        $("#loginForm").submit();
+
+                    }
+                }, 2400);
             },
             error: function (xhr, errormsg) {
                 console.log("error msg : " + errormsg);
+                setTimeout(function () {
+                    $('.login').removeClass('testtwo'); // remove pan effect
+                }, 2000);
+                setTimeout(function () {
+                    $('.login').removeClass('test'); // remove tilt effect
+                    $('.login div').fadeOut(100);
+                }, 2400);
             },
             complete: function (xhr) {
                 console.log("xhr.readyState : " + xhr.readyState);

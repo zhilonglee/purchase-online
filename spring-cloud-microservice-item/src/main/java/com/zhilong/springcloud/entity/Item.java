@@ -39,7 +39,7 @@ public class Item {
     @Column
     private String category_name;
 
-    @Column
+    @Column(columnDefinition = "varchar(1024) comment 'item description'")
     private String item_des;
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy MM dd HH:mm:ss")

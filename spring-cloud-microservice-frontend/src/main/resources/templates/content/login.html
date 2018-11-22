@@ -3,24 +3,56 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Purchase Online</title>
     <link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{css/login.css}" />
     <script th:src="@{js/jquery-3.3.1.min.js}"></script>
     <script th:src="@{js/bootstrap.min.js}"></script>
     <script th:src="@{js/module/user.js}"></script>
+    <script th:src="@{js/Particleground.js}"></script>
     <script>
         $(document).ready(function () {
-            $("#loginbtn").click(function () {
-                USER.getToken();
-                $("#loginForm").submit();
+            // Particle background
+            $('body').particleground({
+                dotColor: '#E8DFE8',
+                lineColor: '#133b88'
             });
+
+            $("#loginbtn").click(function () {
+
+                $('.login').addClass('test'); //add tilt effect
+                setTimeout(function () {
+                    $('.login').addClass('testtwo'); //add pan effect
+                }, 300);
+
+                USER.getToken();
+            });
+
         });
+        $(document).keypress(function (e) {
+            // enter key event
+            if (e.which == 13) {
+                $('#loginbtn').click();
+            }
+        });
+        var fullscreen = function () {
+            elem = document.body;
+            if (elem.webkitRequestFullScreen) {
+                elem.webkitRequestFullScreen();
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else if (elem.requestFullScreen) {
+                elem.requestFullscreen();
+            } else {
+                alert("can not access full screent mode!")
+            }
+        }
     </script>
 </head>
 <body style="background-color: #f5f5f5;">
-<div id="login">
-    <div class="container">
-        <div class="container-fluid">
+<div id="login" class="login">
+    <div >
+        <div>
             <div class="row">
-                <div class="col-md-6 col-md-offset-4">
+                <div>
                     <image  th:src="@{img/logo.png}"></image>
     <h1><a href="/index.html" title="Purchase Online" tabindex="-1">Purchase Online</a></h1>
     <form name="loginForm" id="loginForm" action="/login" method="post">
@@ -54,6 +86,5 @@
         </div>
     </div>
 </div>
-<div th:insert="~{views/footer :: my_footer}"></div>
 </body>
 </html>

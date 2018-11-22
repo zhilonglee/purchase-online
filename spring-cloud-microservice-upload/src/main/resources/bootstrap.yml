@@ -12,3 +12,5 @@ sftp:
     directory: /usr/share/nginx-web/
   local:
     directory: D:/note/
+host:
+  url: http://192.168.137.10

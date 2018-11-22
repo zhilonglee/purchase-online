@@ -222,7 +222,7 @@ public class PersonController {
      * @return
      */
     @PostMapping("/oauth/token")
-    public HttpEntity getToken(@RequestBody Map<String,String> map) {
+    public ResponseEntity getToken(@RequestBody Map<String,String> map) {
         return oauth2Service.getOauth2TokenViaApiGateWay(map);
     }
 

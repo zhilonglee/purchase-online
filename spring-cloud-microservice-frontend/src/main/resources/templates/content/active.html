@@ -3,9 +3,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Purchase Online</title>
     <link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{css/login.css}" />
     <script th:src="@{js/jquery-3.3.1.min.js}"></script>
     <script th:src="@{js/bootstrap.min.js}"></script>
     <script th:src="@{js/module/user.js}"></script>
+    <script th:src="@{js/Particleground.js}"></script>
     <script>
 
 
@@ -18,6 +20,13 @@
         };
 
         $(document).ready(function () {
+            // Particle background
+            $('body').particleground({
+                dotColor: '#E8DFE8',
+                lineColor: '#133b88'
+            });
+            $('.login').css("width","550");
+            $('.login').css("height","400");
             setInterval(function(){
                 var time = $("#remain-seconds").html();
                 console.log("time : " + time);
@@ -33,15 +42,15 @@
     </script>
 </head>
 <body style="background-color: #f5f5f5;">
-<div class="container">
-    <div class="container-fluid">
+<div class="login">
+    <div>
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-    <div class="jumbotron">
+            <div>
+    <div>
         <h1>Welcome to the Activation Site.</h1>
         <p>The activate operation will be performed automatically after 5 seconds.</p>
-        <p id="remain-seconds" class="center-block">5</p>
-        <p><a class="btn btn-primary btn-lg" th:href="@{login.html}" role="button">
+        <h2 id="remain-seconds"style="text-align:center">5</h2>
+        <p><a class="btn btn-primary btn-lg" style="float:right" th:href="@{login.html}" role="button">
             Login</a>
         </p>
     </div>
@@ -49,6 +58,5 @@
         </div>
     </div>
 </div>
-<div th:insert="~{views/footer :: my_footer}"></div>
 </body>
 </html>

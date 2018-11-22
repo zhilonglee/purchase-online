@@ -23,7 +23,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Page<Item> findAll(Pageable pageable) {
-        return repository.findAll(pageable);
+        return repository.findAllByOrderByCreateDateDesc(pageable);
     }
 
     @Override

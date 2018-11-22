@@ -17,6 +17,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.Serializable;
 import java.util.Map;
 
 @Service
@@ -34,7 +35,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
     RestTemplate restTemplate;
 
     @Override
-    public HttpEntity getOauth2TokenViaApiGateWay(Map<String, String> map) {
+    public ResponseEntity<? extends Serializable> getOauth2TokenViaApiGateWay(Map<String, String> map) {
 
         HttpHeaders headers = new HttpHeaders();
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();

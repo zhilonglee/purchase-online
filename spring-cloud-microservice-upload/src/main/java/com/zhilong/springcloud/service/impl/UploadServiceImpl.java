@@ -23,11 +23,11 @@ public class UploadServiceImpl implements UploadService {
 
     private static Logger logger = LoggerFactory.getLogger(UploadServiceImpl.class);
 
-    @Autowired
-    private SftpConfig sftpConfig;
-
     @Value("${sftp.local.directory:D:/note/}")
     private String sftpLocalDirectory;
+
+    @Value("${host.url:http://192.168.137.10}")
+    private String hosturl;
 
     @Autowired
     UploadGateway uploadGateway;
@@ -53,7 +53,7 @@ public class UploadServiceImpl implements UploadService {
 
             // upload the file from local server to sftp server
             uploadGateway.upload(file);
-            String path = sftpConfig.getSftpHost() + "/" + originalFilename;
+            String path = hosturl + "/" + originalFilename;
             responseEntity = ResponseEntity.ok(path);
 
         } catch (Exception e) {
