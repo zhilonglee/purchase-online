@@ -1,7 +1,7 @@
 var PAYMENT = {
     request : {
-        order_request_url : "http://localhost:8042/item/v1/nets/orderRequest",
-        query_request_url : "http://localhost:8042/item/v1/nets/query"
+        order_request_url : "http://192.168.137.10:8042/item/v1/nets/orderRequest",
+        query_request_url : "http://192.168.137.10:8042/item/v1/nets/query"
     },
 
     inquiryCount : 0,

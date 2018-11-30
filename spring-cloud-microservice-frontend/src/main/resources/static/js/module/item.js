@@ -1,6 +1,6 @@
 var ITEM = {
     request : {
-        item_list_utl : "http://localhost:8042/item/v1/brief"
+        item_list_utl : "http://192.168.137.10:8042/item/v1/brief"
     },
 
     getAll : function (page, size) {

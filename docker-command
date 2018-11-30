@@ -18,4 +18,10 @@ docker rm -f purchase-online-frontend
 docker build -t purchase-online/frontend /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-frontend
 docker run -d -p 8082:8082 --name purchase-online-frontend purchase-online/frontend
 
+#item
+docker rm -f purchase-online-item
+docker build -t purchase-online/item /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-item
+docker run -d -p 8120:8120 --name purchase-online-item purchase-online/item
+
+
 docker run -d -p 1080:1080 -p 1025:1025 --name mailcatcher schickling/mailcatcher
