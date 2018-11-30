@@ -84,6 +84,11 @@ public class CommonController {
         return "content/newpassword";
     }
 
+    @RequestMapping("/payment")
+    public String payment() {
+        return "content/payment";
+    }
+
     @Scheduled(cron = "0 0/1 * * * *")
     @ResponseBody
     @PostMapping("/check/oauth2/token")

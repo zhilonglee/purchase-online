@@ -1,6 +1,6 @@
 var ITEM = {
     request : {
-        item_list_utl : "http://localhost:8042/item/v1"
+        item_list_utl : "http://localhost:8042/item/v1/brief"
     },
 
     getAll : function (page, size) {
@@ -22,6 +22,9 @@ var ITEM = {
                         "<div class='col-xs-6 col-sm-3 placeholder'>" +
                         "<img src='" + this.image + "' class='img-responsive' alt='Generic placeholder thumbnail' width='200' height='200'>" +
                         "<h4>" + this.title + "</h4>" +
+                        "<div class='price-sales'>" +
+                        "<span class='price'><i class='rmb'>¥</i>" + this.currentprice + "</span>" +
+                        "</div>"+
                         "<span class='text-muted'>" + this.item_des + "</span>" +
                         "</div>"
                     );

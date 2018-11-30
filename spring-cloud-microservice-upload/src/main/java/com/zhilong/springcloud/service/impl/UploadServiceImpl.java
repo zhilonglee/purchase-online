@@ -1,5 +1,6 @@
 package com.zhilong.springcloud.service.impl;
 
+import com.jcraft.jsch.ChannelSftp;
 import com.zhilong.springcloud.config.SftpConfig;
 import com.zhilong.springcloud.service.UploadService;
 import org.slf4j.Logger;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.integration.file.remote.RemoteFileTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +34,8 @@ public class UploadServiceImpl implements UploadService {
     @Autowired
     UploadGateway uploadGateway;
 
+    @Autowired
+    RemoteFileTemplate<ChannelSftp.LsEntry> remoteFileTemplate;
 
     @Override
     public ResponseEntity<String> uploadFileViaSftp(MultipartFile multipartFile) {
@@ -80,5 +84,11 @@ public class UploadServiceImpl implements UploadService {
             logger.info("File in server has deleted : " + delete);
         }
         return responseEntity;
+    }
+
+    @Override
+    public ResponseEntity deleteSftpFile(String path, String fileName){
+        boolean isRemove = remoteFileTemplate.remove(path + fileName);
+        return ResponseEntity.ok(isRemove);
     }
 }

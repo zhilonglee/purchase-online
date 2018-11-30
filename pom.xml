@@ -35,8 +35,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <docker.plugin.version>1.2.0</docker.plugin.version>
-        <docker.image.prefix>spring-boot-cloud</docker.image.prefix>
+<!--        <docker.plugin.version>1.2.0</docker.plugin.version>
+        <docker.image.prefix>spring-boot-cloud</docker.image.prefix>-->
+        <docker.file.plugin.version>1.4.9</docker.file.plugin.version>
         <spring.cloud.version>Greenwich.M1</spring.cloud.version>
         <spring-boot-admin.version>2.1.1</spring-boot-admin.version>
     </properties>
@@ -74,6 +75,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+        </plugins>
+<!--        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
@@ -98,7 +105,33 @@
                     </resources>
                 </configuration>
             </plugin>
-        </plugins>
+        </plugins>-->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>dockerfile-maven-plugin</artifactId>
+                    <version>${docker.file.plugin.version}</version>
+                    <configuration>
+                        <repository>zhilonglee/spring-cloud-microservice-project</repository>
+                        <tag>${project.version}</tag>
+                        <buildArgs>
+                            <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                        </buildArgs>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>default</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>build</goal>
+                                <goal>push</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
     <repositories>

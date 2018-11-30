@@ -1,0 +1,49 @@
+<html xmlns:th="http://www.thymeleaf.org" class="gr__v3_bootcss_com" lang="zh-CN"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Purchase Online</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+    <!--    <link rel="stylesheet" href="/css/bootstrap.min.css"/>-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- Bootstrap core JavaScript
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script th:src="@{js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{js/bootstrap.min.js}"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script th:src="@{js/holder.min.js}"></script>
+    <script th:src="@{js/module/payment.js}"></script>
+    <script>
+        $(document).ready(function () {
+            $(document).keyup(function(event) {
+                if (event.keyCode === 13) {
+                    $('button').click();
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+<div class="container">
+    <div class="container-fluid">
+        <div class="row">
+        <p>
+            <label for="amount">Amount<br>
+                <input type="text" name="amount" id="amount" class="form-control" value=""  required="required"></label>
+        </p>
+            <button class="btn btn-primary form-control" onclick="PAYMENT.getOrder()">Generate QR</button>
+        </div>
+        <div class="row">
+        <div id="payment_image"></div>
+        <div id="result_image"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

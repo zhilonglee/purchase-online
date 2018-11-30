@@ -5,4 +5,5 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface UploadService {
     ResponseEntity uploadFileViaSftp(MultipartFile multipartFile);
+    ResponseEntity deleteSftpFile(String path, String fileName);
 }

@@ -1,5 +1,6 @@
 package com.zhilong.springcloud.config;
 
+import com.jcraft.jsch.ChannelSftp;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,7 @@ import org.springframework.integration.annotation.Gateway;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.file.FileNameGenerator;
+import org.springframework.integration.file.remote.RemoteFileTemplate;
 import org.springframework.integration.file.remote.session.CachingSessionFactory;
 import org.springframework.integration.file.remote.session.SessionFactory;
 import org.springframework.integration.sftp.outbound.SftpMessageHandler;
@@ -57,6 +59,11 @@ public class SftpConfig {
         }
         factory.setAllowUnknownKeys(true);
         return new CachingSessionFactory<LsEntry>(factory);
+    }
+
+    @Bean
+    public RemoteFileTemplate<LsEntry> remoteFileTemplate(SessionFactory<LsEntry> sftpSessionFactory) {
+        return new RemoteFileTemplate<LsEntry>(sftpSessionFactory);
     }
 
     @Bean

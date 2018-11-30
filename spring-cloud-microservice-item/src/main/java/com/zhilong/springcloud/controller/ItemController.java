@@ -2,6 +2,7 @@ package com.zhilong.springcloud.controller;
 
 import com.zhilong.springcloud.entity.Item;
 import com.zhilong.springcloud.entity.JsonResult;
+import com.zhilong.springcloud.entity.dto.ItemSimpleTo;
 import com.zhilong.springcloud.fegin.UploadFeginClient;
 import com.zhilong.springcloud.service.ItemService;
 import org.slf4j.Logger;
@@ -37,9 +38,17 @@ public class ItemController {
             all = itemService.findAll();
             logger.info("Finding all items with size : " + all.size());
         } else {
-            all = itemService.findAll(PageRequest.of(page, size, Sort.by(Sort.DEFAULT_DIRECTION, "createDate"))).getContent();
+            all = itemService.findAll(PageRequest.of(page, size, Sort.by(Sort.DEFAULT_DIRECTION, "createDate")));
             logger.info("Finding a part of items with size : " + all.size() + ". Page : " + page);
         }
+        return ResponseEntity.ok(all);
+    }
+
+    @GetMapping("/brief")
+    public ResponseEntity<List<ItemSimpleTo>> itemSimplelist(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size",defaultValue = "10") Integer size){
+        List<ItemSimpleTo> all = new ArrayList<>();
+        all = itemService.findAllSimpleItem(PageRequest.of(page, size));
+        logger.info("Finding a part of items with size : " + all.size() + ". Page : " + page);
         return ResponseEntity.ok(all);
     }
 
