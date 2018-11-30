@@ -56,7 +56,19 @@ Currently, nothing bug is recorded.
 ### _spring-cloud-microservice-monitor_
 Currently, nothing bug is recorded.
 ### _spring-cloud-microservice-common_ 
-Currently, nothing bug is recorded.
+**1.When other module which depend this module run 'maven clean install'. There are going to show this compiler error 'can not find symbol'**
+> Actually, when the spring-boot project is packaged as a jar, it is different from other projects. A layer of boot-inf is added, and all classes are put here
+ When relying on a spring-boot project, the following configuration should be added to the dependent project pom:
+>> 
+       <plugins>
+           <plugin>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-maven-plugin</artifactId>
+               <configuration>
+                   <classifier>exec</classifier>
+               </configuration>
+           </plugin>
+       </plugins>
 ### _spring-cloud-microservice-user-provider_
 Currently, nothing bug is recorded.
 ### _spring-cloud-microservice-api-gateway_
