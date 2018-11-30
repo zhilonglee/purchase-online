@@ -1,6 +1,7 @@
 package com.zhilong.springcloud.controller;
 
 import com.zhilong.springcloud.config.CustomizeConfig;
+import com.zhilong.springcloud.constant.UserProviderConstant;
 import com.zhilong.springcloud.entity.JsonResult;
 import com.zhilong.springcloud.entity.Person;
 import com.zhilong.springcloud.entity.enu.Status;
@@ -158,7 +159,7 @@ public class PersonController {
             Map map = new HashMap<String, Object>();
             map.put("name", person.getUsername());
             map.put("message", "Congratulations, registration is successful!");
-            map.put("href", "http://localhost:8082/active.html?token=" + token);
+            map.put("href", UserProviderConstant.FRONTEND_URL + "active.html?token=" + token);
             map.put("description", "Do not share this registration confirmation letter with anyone else.");
             map.put("createdDate", person.getCreateDate());
             map.put("status", Status.NEW.toString());
@@ -182,7 +183,7 @@ public class PersonController {
             Map map = new HashMap<String, Object>();
             map.put("name", person.getUsername());
             map.put("message", "Congratulations, reset password request is successful!");
-            map.put("href", "http://localhost:8082/newpassword.html?token=" + token);
+            map.put("href", UserProviderConstant.FRONTEND_URL + "newpassword.html?token=" + token);
             map.put("description", "Do not share this letter with anyone else.");
             map.put("createdDate", person.getCreateDate());
             map.put("status", Status.ACTIVE.toString());

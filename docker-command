@@ -1,0 +1,17 @@
+#eureka
+docker build -t purchase-online/eureka /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-eureka
+docker run -d -p 8761:8761 --name purchase-online-eureka purchase-online/eureka
+
+#user
+docker build -t purchase-online/user /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-user-provider
+docker run -d -p 8100:8100 --name purchase-online-user purchase-online/user
+
+#api-gateway
+docker build -t purchase-online/apigateway /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-api-gateway
+docker run -d -p 8042:8042 --name purchase-online-apigateway purchase-online/apigateway
+
+#frontend
+docker build -t purchase-online/frontend /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-frontend
+docker run -d -p 8082:8082 --name purchase-online-frontend purchase-online/frontend
+
+docker run -d -p 1080:1080 -p 1025:1025 --name mailcatcher schickling/mailcatcher

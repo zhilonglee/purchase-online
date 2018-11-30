@@ -12,7 +12,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   mail:
     host: 192.168.137.10
-    port: 25
+    port: 1025
     username:
     password:
     properties:
