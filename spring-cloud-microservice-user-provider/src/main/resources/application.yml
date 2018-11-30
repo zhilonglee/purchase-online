@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver #com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/zhilong?useUnicode=true&characterEncoding=utf-8&transformedBitIsBoolean=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&autoReconnect=true&failOverReadOnly=false&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.137.10:3306/purchaseonline?useUnicode=true&characterEncoding=utf-8&transformedBitIsBoolean=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&autoReconnect=true&failOverReadOnly=false&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
     username: root
-    password: root123
+    password: root
   jpa:
     generate-ddl: true
     show-sql: true
@@ -11,7 +11,7 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   mail:
-    host: localhost
+    host: 192.168.137.10
     port: 25
     username:
     password:
@@ -36,7 +36,7 @@ eureka:
     healthcheck:
       enabled: false #true
     service-url:
-      defaultZone: http://admin:admin@localhost:8761/eureka #http://peer1:8761/eureka,http://peer2:8762/eureka
+      defaultZone: http://admin:admin@192.168.137.10:8761/eureka #http://peer1:8761/eureka,http://peer2:8762/eureka
     fetchRegistry: true
   instance:
     prefer-ip-address: true
