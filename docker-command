@@ -32,5 +32,6 @@ docker run -d -p 8120:8120 --name purchase-online-item purchase-online/item
 docker rm -f purchase-online-upload
 docker build -t purchase-online/upload /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-upload
 docker run -d -p 8110:8110 --name purchase-online-upload purchase-online/upload
+docker logs -f --tail=10 purchase-online-upload
 
 docker run -d -p 1080:1080 -p 1025:1025 --name mailcatcher schickling/mailcatcher
