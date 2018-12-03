@@ -1,6 +1,7 @@
 package com.zhilong.springcloud.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zhilong.springcloud.entity.enu.ItemStatus;
 import lombok.Data;
@@ -67,6 +68,7 @@ public class Item implements Serializable {
     @Column(columnDefinition = "datetime comment 'update date'")
     private Date updateDate;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Transient
     private BigDecimal currentprice;
 

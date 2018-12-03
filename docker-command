@@ -3,6 +3,11 @@ docker rm -f purchase-online-eureka
 docker build -t purchase-online/eureka /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-eureka
 docker run -d -p 8761:8761 --name purchase-online-eureka purchase-online/eureka
 
+#monitor
+docker rm -f purchase-online-monitor
+docker build -t purchase-online/monitor /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-monitor
+docker run -d -p 8040:8040 --name purchase-online-monitor purchase-online/monitor
+
 #user
 docker rm -f purchase-online-user
 docker build -t purchase-online/user /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-user-provider
@@ -23,5 +28,9 @@ docker rm -f purchase-online-item
 docker build -t purchase-online/item /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-item
 docker run -d -p 8120:8120 --name purchase-online-item purchase-online/item
 
+#upload
+docker rm -f purchase-online-upload
+docker build -t purchase-online/upload /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-upload
+docker run -d -p 8110:8110 --name purchase-online-upload purchase-online/upload
 
 docker run -d -p 1080:1080 -p 1025:1025 --name mailcatcher schickling/mailcatcher

@@ -253,7 +253,7 @@ register : function () {
                     $('.login').removeClass('test'); // remove tilt effect
                     if (data.access_token != '') {
                         //sucess
-                        $('.login div').fadeOut(100);
+                        $('.login').fadeOut(500);
                         //submit form
                         $("#loginForm").submit();
 
@@ -267,7 +267,7 @@ register : function () {
                 }, 2000);
                 setTimeout(function () {
                     $('.login').removeClass('test'); // remove tilt effect
-                    $('.login div').fadeOut(100);
+                    $('.login div').fadeIn(100);
                 }, 2400);
             },
             complete: function (xhr) {
