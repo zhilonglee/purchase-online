@@ -25,7 +25,7 @@ public class UploadServiceImpl implements UploadService {
 
     private static Logger logger = LoggerFactory.getLogger(UploadServiceImpl.class);
 
-    @Value("${sftp.local.directory: /upload}")
+    @Value("${sftp.local.directory: /tmp}")
     private String sftpLocalDirectory;
 
     @Value("${host.url:http://192.168.137.10}")
@@ -50,8 +50,8 @@ public class UploadServiceImpl implements UploadService {
             if(!dir.exists() && dir.isDirectory()){
                 dir.mkdirs();
             }
-            file = new File(sftpLocalDirectory + originalFilename);
-            logger.info("File : " + sftpLocalDirectory + originalFilename);
+            file = new File(sftpLocalDirectory, originalFilename);
+            logger.info("File : " + sftpLocalDirectory + "/" + originalFilename);
             fos = new FileOutputStream(file);
             bos = new BufferedOutputStream(fos);
             bos.write(bytes);

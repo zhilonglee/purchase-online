@@ -31,7 +31,7 @@ public class Item implements Serializable {
     @Column
     private String title;
 
-    @Column
+    @Column(columnDefinition = "varchar(1024) comment 'item sell point'")
     private String sell_point;
 
     @Column
