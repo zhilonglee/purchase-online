@@ -50,6 +50,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public List<ItemSimpleTo> findAllSimpleItemByCategory(Integer catId,Pageable pageable) {
+        return repository.findItemBirefByStatusAndStockNumCategoryGreaterThan(ItemStatus.NORMAL,catId,0,pageable).getContent();
+    }
+
+    @Override
     public Item save(Item item) {
         return repository.save(item);
     }

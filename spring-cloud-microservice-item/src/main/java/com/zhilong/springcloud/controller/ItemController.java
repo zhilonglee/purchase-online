@@ -45,9 +45,17 @@ public class ItemController {
     }
 
     @GetMapping("/brief")
-    public ResponseEntity<List<ItemSimpleTo>> itemSimplelist(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size",defaultValue = "10") Integer size){
+    public ResponseEntity<List<ItemSimpleTo>> itemSimplelist(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size",defaultValue = "16") Integer size){
         List<ItemSimpleTo> all = new ArrayList<>();
         all = itemService.findAllSimpleItem(PageRequest.of(page, size));
+        logger.info("Finding a part of items with size : " + all.size() + ". Page : " + page);
+        return ResponseEntity.ok(all);
+    }
+
+    @GetMapping("/brief/{id}")
+    public ResponseEntity<List<ItemSimpleTo>> itemSimple(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size",defaultValue = "4") Integer size, @PathVariable("id") Integer id){
+        List<ItemSimpleTo> all = new ArrayList<>();
+        all = itemService.findAllSimpleItemByCategory(id,PageRequest.of(page, size));
         logger.info("Finding a part of items with size : " + all.size() + ". Page : " + page);
         return ResponseEntity.ok(all);
     }
