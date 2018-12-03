@@ -27,6 +27,7 @@ docker run -d -p 8082:8082 --name purchase-online-frontend purchase-online/front
 docker rm -f purchase-online-item
 docker build -t purchase-online/item /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-item
 docker run -d -p 8120:8120 --name purchase-online-item purchase-online/item
+docker logs -f --tail=10 purchase-online-item
 
 #upload
 docker rm -f purchase-online-upload

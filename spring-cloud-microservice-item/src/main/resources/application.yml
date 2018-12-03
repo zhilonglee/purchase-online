@@ -22,7 +22,7 @@ eureka:
   instance:
     prefer-ip-address: true
     instanceId: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
-    instanceId: ${spring.application.name}:${eureka.instance.hostname}:${server.port}
+    #instanceId: ${spring.application.name}:${eureka.instance.hostname}:${server.port}
     #hostname: localhost
     ip-address: 192.168.137.10
 management:
