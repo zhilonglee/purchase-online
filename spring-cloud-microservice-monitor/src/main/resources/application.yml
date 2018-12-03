@@ -6,8 +6,8 @@ spring:
       name: admin
       password: admin
   mail:
-    host: localhost
-    port: 25
+    host: 192.168.137.10
+    port: 1025
   boot:
     admin:
       notify:
@@ -20,17 +20,17 @@ eureka:
   instance:
     leaseRenewalIntervalInSeconds: 10
     health-check-url-path: /actuator/health
-    hostname: localhost
     prefer-ip-address: true
     metadata-map:
       user.name: ${spring.security.user.name}
       user.password: ${spring.security.user.password}
       startup: ${random.int}
-    instance-id: ${spring.application.name}:${eureka.instance.hostname}:${server.port}
+    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
+    ip-address: 192.168.137.10
   client:
     # registryFetchIntervalSeconds: 5
     service-url:
-      defaultZone: http://admin:admin@127.0.0.1:8761/eureka/
+      defaultZone: http://admin:admin@192.168.137.10:8761/eureka/
 
 management:
   endpoints:
