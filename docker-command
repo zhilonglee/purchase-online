@@ -17,6 +17,7 @@ docker run -d -p 8100:8100 --name purchase-online-user purchase-online/user
 docker rm -f purchase-online-apigateway
 docker build -t purchase-online/apigateway /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-api-gateway
 docker run -d -p 8042:8042 --name purchase-online-apigateway purchase-online/apigateway
+docker logs -f --tail=10 purchase-online-apigateway
 
 #frontend
 docker rm -f purchase-online-frontend

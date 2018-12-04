@@ -57,7 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/register*"
+                .antMatchers("/",
+                        "/index*",
+                        "/register*"
                 ,"/footer"
                 ,"/active*"
                 ,"/resetpassword*"
@@ -72,7 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 // .loginProcessingUrl("/login")
                 .failureForwardUrl("/login?error")
-                .successForwardUrl("/index.html")
+                //.successForwardUrl("/index.html")
+                .defaultSuccessUrl("/index.html")
                 .permitAll()
                 .and()
                 .logout()

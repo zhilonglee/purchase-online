@@ -46,16 +46,21 @@ public class CommonController {
     @RequestMapping(value = {"/index","/"})
     public String index(Model model, HttpServletRequest request) {
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+        Object principal = SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
+        if ( principal instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) principal;
+            getCurrentSessionAndAddinSessionContext(request, userDetails);
+            model.addAttribute("userDetails",userDetails);
+        }
 
         // there is remained a bug: First time,Access the system via login function.If authentication is passed,
         // the website will redirect to /index page. But owing to request redirection, the session can not be created right now.
         // When users access /index or / page again, the session can be got.
-        getCurrentSessionAndAddinSessionContext(request, userDetails);
 
-        model.addAttribute("userDetails",userDetails);
+
+
         return "content/index";
     }
 
@@ -137,7 +142,7 @@ public class CommonController {
                     String username = (String)session.getAttribute("username");
                     if (username != null && username != "") {
                         responseEntity = restTemplate.postForObject(
-                                "http://localhost:8042/user/v1/person/oauth/token/extend/" +
+                                "http://192.168.137.10:8042/user/v1/person/oauth/token/extend/" +
                                         username,
                                 null,
                                 String.class);

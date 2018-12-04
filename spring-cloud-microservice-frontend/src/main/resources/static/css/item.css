@@ -20,3 +20,13 @@
     margin-right: 1px;
 
 }
+.panel-item {
+    border-color: #FF5000;
+}
+
+.panel-item > .panel-heading {
+    color: #fff;
+    background-color: #FF5000;
+    border-color: #FF5000;
+
+}
