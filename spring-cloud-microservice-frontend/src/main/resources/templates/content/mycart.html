@@ -1,0 +1,138 @@
+<html xmlns:th="http://www.thymeleaf.org" class="gr__v3_bootcss_com" lang="zh-CN"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags * must be * placed first, any other content * must * follow it! -->
+    <meta name="description" content="zhilong's personal project">
+    <meta name="author" content="zhilong">
+
+    <title>Purchase Online</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+    <!--    <link rel="stylesheet" href="/css/bootstrap.min.css"/>-->
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" th:href="@{css/cart.css}" />
+    <!--    <link rel="stylesheet" href="/css/dashboard.css"/>-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- Bootstrap core JavaScript
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script th:src="@{js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{js/bootstrap.min.js}"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script th:src="@{js/holder.min.js}"></script>
+
+    <script th:src="@{js/cart.js}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#logoutbtn").click(function () {
+                $("#logoutForm").submit();
+            });
+        });
+    </script>
+</head>
+<div class="w w1 header clearfix">
+    <div id="logo"><a href="/"><img  th:src="@{img/logo.png}" title="Return to Purchase Online Home Page" alt="Return to Purchase Online Home Page"></a></div>
+</div>
+<div class="w cart">
+    <div class="cart-hd group">
+        <h2>My Cart</h2>
+    </div>
+    <div id="show">
+
+        <div class="cart-frame">
+            <div class="tl"></div>
+            <div class="tr"></div>
+        </div>
+        <div class="cart-inner">
+            <div class="cart-thead clearfix">
+                <div class="column t-checkbox form"><input data-cart="toggle-cb" name="toggle-checkboxes" id="toggle-checkboxes_up" type="checkbox" checked="" value=""><label for="toggle-checkboxes_up">All</label></div>
+                <div class="column t-goods">Products</div>
+                <div class="column t-price">Price</div>
+                <div class="column t-promotion">Discounted Price</div>
+                <div class="column t-inventory">Stock</div>
+                <div class="column t-quantity">Count</div>
+                <div class="column t-action">Operations</div>
+            </div>
+            <div id="product-list" class="cart-tbody">
+
+                    <div id="product_11345721" data-bind="rowid:1" class="item item_selected ">
+                        <div class="item_form clearfix">
+                            <div class="cell p-checkbox"><input data-bind="cbid:1" class="checkbox" type="checkbox" name="checkItem" checked="" value="11345721-1"></div>
+                            <div class="cell p-goods">
+                                <div class="p-img">
+                                    <a href="/item/${cart.id }.html" target="_blank">
+                                        <img clstag="clickcart|keycount|xincart|p-imglistcart" src="${cart.image}" alt="Item title" width="52" height="52">
+                                    </a>
+                                </div>
+                                <div class="p-name">
+                                    <a href="/item/${cart.id }.html" clstag="clickcart|keycount|xincart|productnamelink" target="_blank">Item title</a>
+                                    <span class="promise411 promise411_11345721" id="promise411_11345721"></span>
+                                </div>
+                            </div>
+                            <div class="cell p-price"><span class="price">¥80.00</span></div>
+                            <div class="cell p-promotion">
+                            </div>
+                            <div class="cell p-inventory stock-11345721">available</div>
+                            <div class="cell p-quantity" for-stock="for-stock-11345721">
+                                <div class="quantity-form" data-bind="">
+                                    <a href="javascript:void(0);" class="decrement" clstag="clickcart|keycount|xincart|diminish1" id="decrement">-</a>
+                                    <input type="text" class="quantity-text" itemPrice="${cart.price}" itemId="${cart.id}" value="0" id="changeQuantity-11345721-1-1-0">
+                                    <a href="javascript:void(0);" class="increment" clstag="clickcart|keycount|xincart|add1" id="increment">+</a>
+                                </div>
+                            </div>
+                            <div class="cell p-remove"><a id="remove-11345721-1" data-more="removed-87.20-1" clstag="clickcart|keycount|xincart|btndel318558" class="cart-remove" href="/cart/delete/${cart.id}.html">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            <div class="cart-toolbar clearfix">
+                <div class="total fr">
+                    <p><span class="totalSkuPrice">¥</span>Total：</p>
+                    <p><span id="totalRePrice">- ¥0.00</span>Reduced Price：</p>
+                </div>
+                <div class="amout fr"><span id="selectedCount">1</span> items</div>
+            </div>
+            <div class="ui-ceilinglamp-1" style="width: 988px; height: 49px;"><div class="cart-dibu ui-ceilinglamp-current" style="width: 988px; height: 49px;">
+                <div class="control fdibu fdibucurrent">
+              <span class="column t-checkbox form">
+                  <input data-cart="toggle-cb" name="toggle-checkboxes" id="toggle-checkboxes_down" type="checkbox" checked="" value="" class="jdcheckbox">
+                  <label for="toggle-checkboxes_down">
+                          All
+                  </label>
+              </span>
+                    <span class="delete">
+                  <b>
+                  </b>
+                  <a href="javascript:void(0);" clstag="clickcart|keycount|xincart|clearcartlink" id="remove-batch">
+                          Delete the selected items
+                  </a>
+              </span>
+                    <span class="shopping">
+                  <b>
+                  </b>
+                  <a href="/" target="_blank" clstag="clickcart|keycount|xincart|coudanlink" id="continue">Continue shopping</a>
+              </span>
+                </div>
+                <div class="cart-total-2014">
+                    <div class="cart-button">
+                  <span class="check-comm-btns" id="checkout-jd">
+                      <a class="checkout" href="/order/order-cart.html" clstag="clickcart|keycount|xincart|gotoOrderInfo" id="toSettlement">Pay Now<b></b></a>
+                  </span>
+                    </div>
+                    <div class="total fr">
+                        Total (excluding freight)：
+                        <span class="totalSkuPrice">¥</span>
+                    </div>
+                </div>
+            </div></div>
+        </div>
+    </div>
+</div>
+
+</html>

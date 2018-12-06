@@ -21,10 +21,10 @@ public class ItemCategory implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(columnDefinition = "bigint comment 'item category primary key'")
-    private Integer id;
+    private Long id;
 
     @Column(columnDefinition = "bigint default '0' comment 'When the ID of the parent category =0, it represents the first-level class'")
-    private Integer parentId;
+    private Long parentId;
 
     @Column(columnDefinition = "varchar(100) comment 'item category name'")
     private String name;

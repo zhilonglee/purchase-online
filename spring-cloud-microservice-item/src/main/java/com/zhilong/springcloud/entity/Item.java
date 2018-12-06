@@ -45,7 +45,7 @@ public class Item implements Serializable {
     private String image;
 
     @Column(columnDefinition = "bigint comment 'item category Id'")
-    private Integer catId;
+    private Long catId;
 
     @Column(columnDefinition = "varchar(1024) comment 'item description'")
     private String item_des;

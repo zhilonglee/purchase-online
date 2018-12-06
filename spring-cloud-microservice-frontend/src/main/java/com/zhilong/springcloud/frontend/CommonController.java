@@ -94,6 +94,12 @@ public class CommonController {
         return "content/payment";
     }
 
+    @RequestMapping("/mycart")
+    public String cart() {
+        return "content/mycart";
+    }
+
+
     @Scheduled(cron = "0 0/1 * * * *")
     @ResponseBody
     @PostMapping("/check/oauth2/token")

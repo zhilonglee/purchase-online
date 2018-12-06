@@ -24,5 +24,5 @@ public interface ItemRepository extends JpaRepository<Item, Long> , JpaSpecifica
 
     @Query(value = "SELECT new com.zhilong.springcloud.entity.dto.ItemSimpleTo(a.id,a.price*a.rate,a.image,a.item_des,a.title,a.catId) from Item as a" +
             " where a.status = :status and a.catId = :catId and a.stockNum > :stockNum ORDER BY a.createDate DESC")
-    Page<ItemSimpleTo> findItemBirefByStatusAndStockNumCategoryGreaterThan(@Param("status") ItemStatus status,@Param("catId")Integer catId, @Param("stockNum")Integer stockNum, Pageable pageable);
+    Page<ItemSimpleTo> findItemBirefByStatusAndStockNumCategoryGreaterThan(@Param("status") ItemStatus status,@Param("catId")Long catId, @Param("stockNum")Integer stockNum, Pageable pageable);
 }

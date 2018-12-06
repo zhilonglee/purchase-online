@@ -15,7 +15,7 @@ public interface ItemService {
 
     List<ItemSimpleTo> findAllSimpleItem(Pageable pageable);
 
-    List<ItemSimpleTo> findAllSimpleItemByCategory(Integer catId,Pageable pageable);
+    List<ItemSimpleTo> findAllSimpleItemByCategory(Long catId,Pageable pageable);
 
     Item save(Item item);
 
