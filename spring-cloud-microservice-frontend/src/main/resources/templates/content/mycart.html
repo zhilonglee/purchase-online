@@ -24,14 +24,11 @@
     <script th:src="@{js/bootstrap.min.js}"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script th:src="@{js/holder.min.js}"></script>
-
-    <script th:src="@{js/cart.js}"></script>
-
-    <script>
-        $(document).ready(function () {
-            $("#logoutbtn").click(function () {
-                $("#logoutForm").submit();
-            });
+    <script th:src="@{js/jquery.price_format.2.0.min.js}"></script>
+    <script th:src="@{js/module/cart.js}"></script>
+    <script th:inline="javascript">
+        $(function(){
+            CART.load([[${userDetails.getUsername()}]]);
         });
     </script>
 </head>
@@ -59,44 +56,13 @@
                 <div class="column t-action">Operations</div>
             </div>
             <div id="product-list" class="cart-tbody">
-
-                    <div id="product_11345721" data-bind="rowid:1" class="item item_selected ">
-                        <div class="item_form clearfix">
-                            <div class="cell p-checkbox"><input data-bind="cbid:1" class="checkbox" type="checkbox" name="checkItem" checked="" value="11345721-1"></div>
-                            <div class="cell p-goods">
-                                <div class="p-img">
-                                    <a href="/item/${cart.id }.html" target="_blank">
-                                        <img clstag="clickcart|keycount|xincart|p-imglistcart" src="${cart.image}" alt="Item title" width="52" height="52">
-                                    </a>
-                                </div>
-                                <div class="p-name">
-                                    <a href="/item/${cart.id }.html" clstag="clickcart|keycount|xincart|productnamelink" target="_blank">Item title</a>
-                                    <span class="promise411 promise411_11345721" id="promise411_11345721"></span>
-                                </div>
-                            </div>
-                            <div class="cell p-price"><span class="price">¥80.00</span></div>
-                            <div class="cell p-promotion">
-                            </div>
-                            <div class="cell p-inventory stock-11345721">available</div>
-                            <div class="cell p-quantity" for-stock="for-stock-11345721">
-                                <div class="quantity-form" data-bind="">
-                                    <a href="javascript:void(0);" class="decrement" clstag="clickcart|keycount|xincart|diminish1" id="decrement">-</a>
-                                    <input type="text" class="quantity-text" itemPrice="${cart.price}" itemId="${cart.id}" value="0" id="changeQuantity-11345721-1-1-0">
-                                    <a href="javascript:void(0);" class="increment" clstag="clickcart|keycount|xincart|add1" id="increment">+</a>
-                                </div>
-                            </div>
-                            <div class="cell p-remove"><a id="remove-11345721-1" data-more="removed-87.20-1" clstag="clickcart|keycount|xincart|btndel318558" class="cart-remove" href="/cart/delete/${cart.id}.html">Delete</a>
-                            </div>
-                        </div>
-                    </div>
-
             </div>
             <div class="cart-toolbar clearfix">
                 <div class="total fr">
-                    <p><span class="totalSkuPrice">¥</span>Total：</p>
-                    <p><span id="totalRePrice">- ¥0.00</span>Reduced Price：</p>
+                    <p><span id="totalSkuPrice" class="totalSkuPrice">¥ 0.00</span>Total：</p>
+                    <p><span id="totalRePrice">-0.00 ¥</span>Reduced Price：</p>
                 </div>
-                <div class="amout fr"><span id="selectedCount">1</span> items</div>
+                <div class="amout fr"><span id="selectedCount">0</span> items</div>
             </div>
             <div class="ui-ceilinglamp-1" style="width: 988px; height: 49px;"><div class="cart-dibu ui-ceilinglamp-current" style="width: 988px; height: 49px;">
                 <div class="control fdibu fdibucurrent">
@@ -127,7 +93,7 @@
                     </div>
                     <div class="total fr">
                         Total (excluding freight)：
-                        <span class="totalSkuPrice">¥</span>
+                        <span  id="totalCurrentSkuPrice" class="totalSkuPrice">¥ 0.00</span>
                     </div>
                 </div>
             </div></div>

@@ -46,14 +46,7 @@ public class CommonController {
     @RequestMapping(value = {"/index","/"})
     public String index(Model model, HttpServletRequest request) {
 
-        Object principal = SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal();
-        if ( principal instanceof UserDetails) {
-            UserDetails userDetails = (UserDetails) principal;
-            getCurrentSessionAndAddinSessionContext(request, userDetails);
-            model.addAttribute("userDetails",userDetails);
-        }
+        getUserDetails(model, request);
 
         // there is remained a bug: First time,Access the system via login function.If authentication is passed,
         // the website will redirect to /index page. But owing to request redirection, the session can not be created right now.
@@ -95,7 +88,8 @@ public class CommonController {
     }
 
     @RequestMapping("/mycart")
-    public String cart() {
+    public String cart(Model model, HttpServletRequest request) {
+        getUserDetails(model, request);
         return "content/mycart";
     }
 
@@ -121,6 +115,17 @@ public class CommonController {
     public HttpEntity showSessionId(){
         SessionContext sessionContext = SessionContext.getInstance();
         return ResponseEntity.ok().body(sessionContext.getSessionIdSet());
+    }
+
+    private void getUserDetails(Model model, HttpServletRequest request) {
+        Object principal = SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if ( principal instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) principal;
+            getCurrentSessionAndAddinSessionContext(request, userDetails);
+            model.addAttribute("userDetails",userDetails);
+        }
     }
 
     private void getCurrentSessionAndAddinSessionContext(HttpServletRequest request, UserDetails userDetails) {

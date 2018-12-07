@@ -116,6 +116,7 @@ public class CartServiceImpl implements CartService {
         newCartItem.setPrice(item.getPrice());
         newCartItem.setCurrentprice(item.getCurrentprice());
         newCartItem.setCategory(itemCategory.getName());
+        newCartItem.setItem_des(item.getItem_des());
         return newCartItem;
     }
 }
