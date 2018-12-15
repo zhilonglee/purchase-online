@@ -18,23 +18,6 @@
     <link rel="stylesheet" th:href="@{css/item.css}" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- Bootstrap core JavaScript
-================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script th:src="@{js/jquery-3.3.1.min.js}"></script>
-    <script th:src="@{js/bootstrap.min.js}"></script>
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script th:src="@{js/holder.min.js}"></script>
-    <script th:src="@{js/module/item.js}"></script>
-    <script>
-        $(document).ready(function () {
-            $("#logoutbtn").click(function () {
-                $("#logoutForm").submit();
-            });
-            //ITEM.getAll(0,16);
-            ITEM.getItemCategorys();
-        });
-    </script>
 </head>
 
 <body data-gr-c-s-loaded="true">
@@ -90,6 +73,21 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="main-pannel">
 
             <div class="row placeholders" id="item-list">
+            </div>
+            <!-- modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Successfully added into shopping cart</h4>
+                        </div>
+                        <div class="modal-body"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
             </div>
 
             <h2 class="sub-header">Section title</h2>
@@ -224,6 +222,24 @@
         </div>
     </div>
 </div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script th:src="@{js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+<script th:src="@{js/holder.min.js}"></script>
+<script th:src="@{js/module/item.js}"></script>
+<script th:src="@{js/module/cart.js}"></script>
 
+<script th:inline="javascript">
+    $(document).ready(function () {
+        $("#logoutbtn").click(function () {
+            $("#logoutForm").submit();
+        });
+        //ITEM.getAll(0,16);
+        ITEM.getItemCategorys([[${userDetails != null ? userDetails.getUsername() : ''}]]);
+    });
+</script>
 </body>
 </html>

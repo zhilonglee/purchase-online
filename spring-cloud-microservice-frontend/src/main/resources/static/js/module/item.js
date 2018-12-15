@@ -3,6 +3,7 @@ var ITEM = {
         item_category_list_url : "http://192.168.137.10:8042/item/v1/category",
         item_list_utl : "http://192.168.137.10:8042/item/v1/brief"
     },
+    username : "",
     categoryId : [],
     getAll : function (page, size) {
         var currentAttr = {};
@@ -27,6 +28,10 @@ var ITEM = {
                         "<span class='price'><i class='rmb'>¥</i>" + this.currentprice + "</span>" +
                         "</div>"+
                         "<span class='text-muted'>" + this.item_des + "</span>" +
+                        "<div><button type='button' itemId='" + this.id + "' class='btn btn-default btn-sm btn-xs cartbtn'>" +
+                        "<span class='glyphicon glyphicon-shopping-cart'></span>Add to cart"  +
+                        "</button>" +
+                        "</div>" +
                         "</div>"
                     );
                 })
@@ -40,7 +45,8 @@ var ITEM = {
             }
         });
     },
-    getItemCategorys : function () {
+    getItemCategorys : function (username) {
+        ITEM.username = username;
         $.ajax({
             url: ITEM.request.item_category_list_url,
             dataType: 'json',
@@ -101,6 +107,9 @@ var ITEM = {
                             "<span class='price'><i class='rmb'>¥</i>" + value.currentprice + "</span>" +
                             "</div>"+
                             "<span class='text-muted'>" + value.item_des + "</span>" +
+                            "<div><button type='button' data-toggle=\"modal\" data-target=\"#myModal\" onclick='ITEM.add2Cart(" + this.id + ")' itemId='" + this.id + "' class='btn btn-default btn-sm btn-xs cartbtn'>" +
+                            "<span class='glyphicon glyphicon-shopping-cart'></span>Add to cart"  +
+                            "</button>" +
                             "</div>"
                         );
                     });
@@ -114,5 +123,15 @@ var ITEM = {
                 }
             });
         });
+    },
+    add2Cart : function (itemId) {
+            //var itemId = $(this).attr("itemId");
+            var params = {};
+            params.num = 1;
+            params.username = ITEM.username;
+            if (params.username == '') {
+                window.location.href="/login.html";
+            }
+            CART.add2Cart(itemId, params);
     }
 };
