@@ -1,13 +1,12 @@
 package com.zhilong.springcloud.service.impl;
 
-import com.zhilong.springcloud.entity.Cart;
-import com.zhilong.springcloud.entity.CartItem;
-import com.zhilong.springcloud.entity.Item;
-import com.zhilong.springcloud.entity.ItemCategory;
+import com.zhilong.springcloud.contonst.PurchaseOnlieGlobalConstant;
+import com.zhilong.springcloud.entity.*;
 import com.zhilong.springcloud.repository.CartRepository;
 import com.zhilong.springcloud.repository.ItemCategoryRepository;
 import com.zhilong.springcloud.repository.ItemRepository;
 import com.zhilong.springcloud.service.CartService;
+import com.zhilong.springcloud.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +17,9 @@ import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
+
+    @Autowired
+    RedisUtils redisUtils;
 
     @Autowired
     CartRepository cartRepository;
@@ -102,7 +104,9 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart getUserCart(String username) {
-        return cartRepository.findFirstByUsername(username);
+        String tokenKey = PurchaseOnlieGlobalConstant.OAUTH2_TOKEN_IN_REDIS_PREFIX + username;
+        TokenResponse tokenResponse = (TokenResponse) redisUtils.getObj(tokenKey);
+        return tokenResponse != null ? cartRepository.findFirstByUsername(username) : new Cart();
     }
 
     private CartItem newInstanceCartItem(Long itemId, Integer num) {

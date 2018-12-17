@@ -32,6 +32,7 @@
         });
     </script>
 </head>
+<div id="loading" style="display: none;"></div>
 <div class="w w1 header clearfix">
     <div id="logo"><a href="/"><img  th:src="@{img/logo.png}" title="Return to Purchase Online Home Page" alt="Return to Purchase Online Home Page"></a></div>
 </div>
@@ -88,7 +89,7 @@
                 <div class="cart-total-2014">
                     <div class="cart-button">
                   <span class="check-comm-btns" id="checkout-jd">
-                      <a class="checkout" href="/order/order-cart.html" clstag="clickcart|keycount|xincart|gotoOrderInfo" id="toSettlement">Pay Now<b></b></a>
+                      <a class="checkout" onclick="CART.payNow()" clstag="clickcart|keycount|xincart|gotoOrderInfo" id="toSettlement">Pay Now<b></b></a>
                   </span>
                     </div>
                     <div class="total fr">

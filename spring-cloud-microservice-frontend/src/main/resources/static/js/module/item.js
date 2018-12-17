@@ -101,7 +101,7 @@ var ITEM = {
                     $.each(data,function (i,value) {
                         $("#item-" + currentCategoryId).append(
                             "<div class='col-xs-6 col-sm-3 placeholder'>" +
-                            "<img src='" + value.image + "' class='img-responsive' alt='Generic placeholder thumbnail' width='200' height='200'>" +
+                            "<img " + (value.stockNum <= 0 ? " class='img-responsive saleout-product' " : " class='img-responsive' ") + "src='" + value.image + "'  alt='Generic placeholder thumbnail' width='200' height='200'>" +
                             "<h4>" + value.title + "</h4>" +
                             "<div class='price-sales'>" +
                             "<span class='price'><i class='rmb'>¥</i>" + value.currentprice + "</span>" +

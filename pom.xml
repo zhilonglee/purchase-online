@@ -29,6 +29,7 @@
         <module>spring-cloud-microservice-config-client</module>
         <module>spring-cloud-microservice-item</module>
         <module>spring-cloud-microservice-upload</module>
+        <module>spring-cloud-microservice-order</module>
     </modules>
 
     <properties>

@@ -30,3 +30,10 @@
     border-color: #FF5000;
 
 }
+
+img.saleout-product {
+    background: url(../img/saleoff.png);
+    z-index: 99;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}

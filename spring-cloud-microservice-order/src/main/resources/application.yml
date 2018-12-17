@@ -12,6 +12,8 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   redis:
     host: 192.168.137.10
+  rabbitmq:
+    host: 192.168.137.10
 eureka:
   client:
     healthcheck:
