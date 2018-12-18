@@ -44,6 +44,12 @@ public class ItemController {
         return ResponseEntity.ok(all);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity item( @PathVariable("id") Long id){
+        Item item = itemService.findById(id);
+        return ResponseEntity.ok(item);
+    }
+
     @GetMapping("/brief")
     public ResponseEntity<List<ItemSimpleTo>> itemSimplelist(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size",defaultValue = "16") Integer size){
         List<ItemSimpleTo> all = new ArrayList<>();
@@ -78,6 +84,12 @@ public class ItemController {
             logger.error("",e);
             return ResponseEntity.badRequest().body(new Item());
         }
+    }
+
+    @PutMapping("/deduct/{id}")
+    public ResponseEntity itemDeductStockNum( @PathVariable("id") Long id, Integer num){
+        Integer deducted = itemService.deductItemStockNum(id, num);
+        return ResponseEntity.ok(deducted);
     }
 
 }

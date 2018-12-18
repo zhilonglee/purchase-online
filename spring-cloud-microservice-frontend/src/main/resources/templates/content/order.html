@@ -1,0 +1,291 @@
+<html xmlns:th="http://www.thymeleaf.org" class="gr__v3_bootcss_com" lang="zh-CN"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags * must be * placed first, any other content * must * follow it! -->
+    <meta name="description" content="zhilong's personal project">
+    <meta name="author" content="zhilong">
+
+    <title>Purchase Online</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+    <!--    <link rel="stylesheet" href="/css/bootstrap.min.css"/>-->
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" th:href="@{css/cart.css}" />
+    <link rel="stylesheet" th:href="@{css/order.css}" />
+    <!--    <link rel="stylesheet" href="/css/dashboard.css"/>-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- Bootstrap core JavaScript
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script th:src="@{js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{js/bootstrap.min.js}"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script th:src="@{js/holder.min.js}"></script>
+    <script th:src="@{js/jquery.price_format.2.0.min.js}"></script>
+    <script th:src="@{js/module/cart.js}"></script>
+    <script th:inline="javascript">
+    </script>
+</head>
+
+<body id="mainframe">
+<div id="loading" style="display: none;"></div>
+<div class="w w1 header clearfix">
+    <div id="logo"><a href="/"><img  th:src="@{img/logo.png}" title="Return to Purchase Online Home Page" alt="Return to Purchase Online Home Page"></a></div>
+</div>
+
+<form id="orderForm" class="hide" action="/order/create.html" method="post">
+</form>
+
+<!-- main -->
+<div id="container">
+    <div id="content" class="w">
+        <div class="m">
+            <div class="mt">
+                <h2>Fill in and check the order information</h2>
+            </div>
+            <div class="mc">
+                <div class="checkout-steps">
+                    <!--  /widget/consignee-step/consignee-step.tpl -->
+                    <div class="step-tit">
+                        <h3>Consignee Info</h3>
+                        <div class="extra-r">
+                            <a href="#none" class="ftx-05" onclick="use_NewConsignee()">Add shipping address</a>
+                        </div>
+                    </div>
+                    <div class="step-cont">
+                        <div class="consignee-list" id="consignee-list1">
+                            <a href="#none" id="prev" class="prev arrow-btns"></a>
+                            <a href="#none" id="next" class="next arrow-btns"></a>
+                            <div id="consignee1" class="list-cont ui-switchable-body">
+                                <div id="consignee-ret"></div>
+                                <ul class="ui-switchable-panel-main" id="consignee-list">
+                                    <!---->
+                                    <li class="ui-switchable-panel" id="consignee_index_137617472"
+                                        selected="selected" style="cursor: pointer;">
+                                        <div class="consignee-item item-selected"
+                                             consigneeId="137617472" id="consignee_index_div_137617472">
+                                            <b></b>
+                                            <div class="user-name">
+                                                <div class="fl">
+                                                    <strong limit="4">Someone</strong>&nbsp;&nbsp;Receive
+                                                </div>
+                                                <div class="fr">158****8888</div>
+                                                <div class="clr"></div>
+                                            </div>
+                                            <div class="mt10" limit="15">Tianfu new district, chengdu city, sichuan province, China</div>
+                                            <div class="adr-m" limit="30">zhonghe xxxxxxxxx</div>
+                                            <div class="op-btns ar">
+                                                <a href="#none"
+                                                   class="ftx-05 mr10 setdefault-consignee hide"
+                                                   fid="137617472">Set to the default address</a> <a href="#none"
+                                                                                 class="ftx-05 mr10 edit-consignee" fid="137617472">Edit</a>
+                                                <a href="#none" class="ftx-05 del-consignee hide"
+                                                   fid="137617472">Delete</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!---->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ /widget/consignee-step/consignee-step.tpl -->
+
+                    <!--/ /widget/shopping-list/shopping-list.tpl -->
+                    <div id="shipAndSkuInfo">
+                        <div id="payShipAndSkuInfo">
+                            <div class="step-tit">
+                                <h3>Payment Channel</h3>
+                            </div>
+                            <div class="step-cont">
+                                <div class="payment-list" id="">
+                                    <div class="list-cont">
+                                        <ul id="payment-list">
+                                            <input type="hidden" id="instalmentPlan" value="false">
+                                            <li style="cursor: pointer;" onclick="save_Pay(1);">
+                                                <div class="payment-item item-selected online-payment "
+                                                     for="pay-method-1" payname="cashOnDelivery" payid="1">
+                                                    <b></b> Cash on delivery<span class="qmark-icon qmark-tip"
+                                                                      data-tips="Payment can be collected after delivery to your home. Cash, POS machine and cheque payment are supported <a href='http://help.jd.com/help/distribution-768-2-2813-2863-0-1410707152669.html' target='_blank' class='ftx-05'>View service and distribution scope</a>"></span>
+                                                </div>
+                                            </li>
+                                            <li style="cursor: pointer;" onclick="save_Pay(4);">
+
+                                                <div class="payment-item  online-payment "
+                                                     for="pay-method-4" payname="paymentOnline" payid="4">
+                                                    <b></b> Payment Online <font class="whiteBarSpanClass hide"
+                                                                       color="#FF6600">[Support ious]</font> <span
+                                                        class="qmark-icon qmark-tip"
+                                                        data-tips="Instant payment, support most bank debit CARDS and some bank credit CARDS <a href='http://www.jd.com/help/onlinepay.aspx' target='_blank' class='ftx-05'> Check the bank and quota</a>"></span>
+                                                </div>
+                                            </li>
+
+                                            <li style="cursor: pointer;" onclick="save_Pay(5); ">
+
+                                                <div class="payment-item online-payment "
+                                                     for="pay-method-5" payname="companyTransfers" payid="5">
+                                                    <b></b> Company Transfers <span class="qmark-icon qmark-tip"
+                                                                       data-tips="1-3 working days after the transfer through the fast money platform <a href='http://help.jd.com/help/question-70.html' target='_blank' class='ftx-05'>View account information</a>"></span>
+                                                </div>
+                                            </li>
+                                            <li style="cursor: pointer;" onclick="save_Pay(2); ">
+
+                                                <div class="payment-item  online-payment "
+                                                     for="pay-method-2" payname="mailRemittance" payid="2">
+                                                    <b></b> Mail Remittance <span class="qmark-icon qmark-tip"
+                                                                       data-tips="1-3 working days after receiving the remittance through the express money platform<a href='http://help.jd.com/help/question-69.html' target='_blank' class='ftx-05'>View help</a>"></span>
+
+                                                </div>
+                                            </li>
+                                            <!--div id="shipment"></div-->
+                                            <script>
+                                                $('.online-payment').hover(function() {
+                                                    $(this).addClass('payment-item-hover');
+                                                }, function() {
+                                                    $(this).removeClass('payment-item-hover');
+                                                });
+                                            </script>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ /widget/payment-step/payment-step.tpl -->
+                            <div class="step-tit">
+                                <h3>Consignment Invoice</h3>
+                            </div>
+                            <div class="step-cont" id="skuPayAndShipment-cont">
+                                <div class="shopping-lists" id="shopping-lists">
+                                    <div class="shopping-list ABTest">
+                                        <div class="goods-list">
+                                            <h4 class="vendor_name_h" id="0">Merchant: Purchase Online</h4>
+                                            <div class="goods-suit goods-last">
+                                                    <div class="goods-item goods-item-extra">
+
+                                                        <div class="p-img">
+                                                            <a target="_blank" href="/item/${cart.id}.html">
+                                                                <img src="${cart.image}" alt="">
+                                                            </a>
+                                                        </div>
+                                                        <div class="goods-msg">
+                                                            <div class="p-name">
+                                                                <a href="/item/${cart.id}.html" target="_blank">
+                                                                    TEST title
+                                                                </a>
+                                                            </div>
+                                                            <div class="p-price">
+                                                                <strong>￥800</strong>
+                                                                <span class="ml20"> x 4 </span>
+                                                                <span class="ml20 p-inventory" skuId="11555193">available</span>
+                                                            </div>
+                                                            <i class="p-icon p-icon-w"></i><span class="ftx-04">7 days no reason to refund</span>
+                                                        </div>
+                                                        <div class="clr"></div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <!--goods-list end-->
+                                        <div class="dis-modes">
+                                            <div class="mode-item mode-tab">
+                                                <h4>
+                                                    Delivery：（<a id="jd-goods-item" class="ftx-05 alink"
+                                                             href="#none">Corresponding Items</a>）
+                                                </h4>
+                                                <div class="mode-tab-nav">
+                                                    <ul>
+                                                        <li class="mode-tab-item " id="jd_shipment_item"
+                                                            onclick="doSwithTab('pay')"><span
+                                                                id="jdShip-span-tip" class="m-txt">PO Delivery<i
+                                                                class='qmark-icon qmark-tip'
+                                                                data-tips='Purchase Online company is responsible for distribution, the speed is very fast, but also accept door-to-door credit card payment service'></i></span><b></b></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--dis-modes end-->
+                                        <div class="clr"></div>
+                                        <div class="freight-cont">
+                                            <strong class="ftx-01" style="color: #666"
+                                                    freightByVenderId="0" popJdShipment="false">Free Delivery</strong>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  /widget/invoice-step/invoice-step.tpl -->
+                    <div class="step-tit">
+                        <h3>Invoice Information</h3>
+                    </div>
+                    <div class="step-content">
+                        <div id="part-inv" class="invoice-cont">
+                            <span class="mr10"> General Invoice (electronic) &nbsp; </span><span class="mr10">
+			Personal &nbsp; </span><span class="mr10"> &nbsp; </span> Details <a href="#none"
+                                                                      class="ftx-05 invoice-edit" onclick="edit_Invoice()">Edit</a>
+                        </div>
+                    </div>
+                    <div class="order-summary">
+                        <div class="statistic fr">
+                            <div class="list">
+					<span>
+						Total merchandise value：
+					</span>
+                                <em class="price" id="warePriceId">¥ 800.00</em>
+                            </div>
+                            <div class="list">
+                                <span>Freight charge：</span> <em class="price" id="freightPriceId">
+                                ￥0.00</em>
+                            </div>
+                            <div class="list">
+                                <span>Total payable：</span> <em class="price" id="sumPayPriceId">
+                                ￥800.00</em>
+                            </div>
+                        </div>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+            </div>
+            <!--/ /widget/order-summary/order-summary.tpl -->
+
+            <!--  /widget/checkout-floatbar/checkout-floatbar.tpl -->
+            <div class="trade-foot">
+                <div id="checkout-floatbar" class="group">
+                    <div class="ui-ceilinglamp checkout-buttons">
+                        <div class="sticky-placeholder hide" style="display: none;">
+                        </div>
+                        <div class="sticky-wrap">
+                            <div class="inner">
+                                <button type="submit" class="checkout-submit btn-1"
+                                        id="order-submit"	onclick="$('#orderForm').submit()">
+                                    Pay Now
+                                </button>
+                                <span class="total">Total payable：<strong id="payPriceId">￥800.00</strong>
+          </span>
+                                <span id="checkCodeDiv"></span>
+                                <div class="checkout-submit-tip" id="changeAreaAndPrice" style="display: none;">
+                                    As the price may change, please check before submitting the order
+                                </div>
+                                <div style="display:none" id="factoryShipCodShowDivBottom" class="dispatching">
+                                    Part of the goods on delivery payment: first by tao tao distribution "bill of lading" and collection, and then the manufacturer shipped.
+                                </div>
+                            </div>
+                            <span id="submit_message" style="display:none" class="submit-error" ></span>
+                            <div class="submit-check-info" id="submit_check_info_message" style="display:none"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+</body>
+
+</html>

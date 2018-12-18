@@ -93,6 +93,11 @@ public class CommonController {
         return "content/mycart";
     }
 
+    @RequestMapping("/order")
+    public String order(Model model, HttpServletRequest request) {
+        getUserDetails(model, request);
+        return "content/order";
+    }
 
     @Scheduled(cron = "0 0/1 * * * *")
     @ResponseBody

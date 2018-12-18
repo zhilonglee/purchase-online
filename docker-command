@@ -30,6 +30,12 @@ docker build -t purchase-online/item /usr/share/jenkins_home/workspace/purchase-
 docker run -d -p 8120:8120 --name purchase-online-item purchase-online/item
 docker logs -f --tail=10 purchase-online-item
 
+#order
+docker rm -f purchase-online-order
+docker build -t purchase-online/order /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-order
+docker run -d -p 8200:8200 --name purchase-online-order purchase-online/order
+docker logs -f --tail=10 purchase-online-order
+
 #upload
 docker rm -f purchase-online-upload
 docker build -t purchase-online/upload /usr/share/jenkins_home/workspace/purchase-online/spring-cloud-microservice-upload

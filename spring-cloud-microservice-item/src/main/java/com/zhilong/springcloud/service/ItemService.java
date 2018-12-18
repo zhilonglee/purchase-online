@@ -19,4 +19,7 @@ public interface ItemService {
 
     Item save(Item item);
 
+    Item findById(Long id);
+
+    Integer deductItemStockNum(Long id, Integer num);
 }

@@ -58,4 +58,14 @@ public class ItemServiceImpl implements ItemService {
     public Item save(Item item) {
         return repository.save(item);
     }
+
+    @Override
+    public Item findById(Long id) {
+        return repository.findById(id).get();
+    }
+
+    @Override
+    public Integer  deductItemStockNum(Long id, Integer num) {
+        return repository.deductedItemStockNumById(id,num);
+    }
 }

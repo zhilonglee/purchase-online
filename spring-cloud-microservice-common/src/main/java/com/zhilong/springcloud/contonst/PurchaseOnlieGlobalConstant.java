@@ -14,4 +14,6 @@ public class PurchaseOnlieGlobalConstant {
     public final static String OAUTH2_TOKEN_GRANTTYPE_PASSWORD = "password";
 
     public final static String OAUTH2_TOKEN_IN_REDIS_PREFIX = "access_token:";
+
+    public final static String YYYYMMDDHHMMSSSSS = "yyyyMMddhhmmssSSS";
 }

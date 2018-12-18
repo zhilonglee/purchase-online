@@ -28,6 +28,9 @@ public class Item implements Serializable {
     @Column(columnDefinition = "bigint comment 'item primary key'")
     private Long id;
 
+    @Version
+    private Integer version;
+
     @Column
     private String title;
 

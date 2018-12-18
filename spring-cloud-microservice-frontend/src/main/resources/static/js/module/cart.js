@@ -4,6 +4,10 @@ var CART = {
         order_url : "http://192.168.137.10:8042/order/v1/detail"
 	},
 	username : '',
+    CartItem : function (id, num) {
+        this.id = id;
+        this.num = num;
+    },
 	load : function(username){
         CART.username = username;
         $.ajax({
@@ -222,34 +226,39 @@ var CART = {
     payNow : function () {
         var params = {};
         params.username = CART.username;
-        params.item = [];
+        params.cartItems = [];
         $("input[id^='changeQuantity-']").each(function (i) {
-            params.item[i].id = $(this).attr("itemId");
-            params.item[i].num = $(this).val();
+            var cartItem = new CART.CartItem($(this).attr("itemId"), $(this).val());
+            params.cartItems.push(cartItem);
             console.log("Item : " + $(this).attr("itemId") + " num : " + $(this).val());
         });
         $.ajax({
             url: CART.request.order_url,
             dataType: 'json',
             type: 'POST',
-            data: params,
+            data: JSON.stringify(params),
             contentType: 'application/json;charset=UTF-8',
             beforeSend: function (xhr) {
                 console.log("Request URL : " + CART.request.order_url);
                 $('#loading').show();
             },
             success: function (data) {
+                setTimeout(function () {
+                $('#loading').hide();
+                window.location.href="/order.html?id=" + data.id;
+            }, 5 * 1000);
             },
             error: function (xhr, errormsg) {
                 console.log("error msg : " + errormsg);
+                setTimeout(function () {
+                    $('#loading').hide();
+                    alert("Something Wrong!")
+                }, 5 * 1000);
             },
             complete: function (xhr) {
                 console.log("xhr.readyState : " + xhr.readyState);
                 console.log("xhr.status : " + xhr.status);
-                setTimeout(function () {
-                    $('#loading').hide();
-                    window.location.href="/order.html";
-                }, 5 * 1000);
+
             }
         });
 
