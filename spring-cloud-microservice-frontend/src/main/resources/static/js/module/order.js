@@ -21,7 +21,32 @@ var ORDER = {
                 $('#loading').show();
             },
             success: function (data) {
-
+                $(".goods-suit goods-last").html("");
+                $.each(data.orderItems,function () {
+                    $(".goods-suit").append(
+                        '<div class="goods-item goods-item-extra">' +
+                        '<div class="p-img">' +
+                        '<a target="_blank" href="/item/' + this.id +'.html">' +
+                        '<img src="' + this.image + '" alt=" ' + this.title + '"></a>' +
+                        '</div>' +
+                        '<div class="goods-msg">' +
+                        '<div class="p-name">' +
+                        '<a target="_blank" href="/item/' + this.id +'.html">' + this.title + '</a>' +
+                        '</div>' +
+                        '<div class="p-price">' +
+                        '<strong>￥' + this.currentprice + '</strong>' +
+                        '<span class="ml20"> x ' + this.num + ' </span>' +
+                        '<span class="ml20 p-inventory">'+ (this.stockNum > 0 ? 'available' : 'sell out') + '</span>' +
+                        '</div>' +
+                        '<i class="p-icon p-icon-w"></i><span class="ftx-04">7 days no reason to refund</span>' +
+                        ' </div>' +
+                        '<div class="clr"></div>' +
+                        '</div>'
+                    );
+                });
+                $("#warePriceId").html("￥ " + data.disacountTotal);
+                $("#sumPayPriceId").html("￥ " + data.disacountTotal);
+                $("#payPriceId").html("￥ " + data.disacountTotal);
                 setTimeout(function () {
                     $('#loading').hide();
                 }, 2 * 1000);

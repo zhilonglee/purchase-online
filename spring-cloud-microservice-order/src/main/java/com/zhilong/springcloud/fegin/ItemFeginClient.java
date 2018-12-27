@@ -19,4 +19,7 @@ public interface ItemFeginClient {
 
     @RequestMapping(method = RequestMethod.PUT, value = "/v1/deduct/{id}")
     ResponseEntity<String> itemDeductStockNum(@PathVariable("id") Long id, @RequestParam("num") Integer num);
+
+    @RequestMapping(method = RequestMethod.GET, value = "/v1/limitedspike/{id}")
+    ResponseEntity<String> secKillitem(@PathVariable("id") Long id);
 }

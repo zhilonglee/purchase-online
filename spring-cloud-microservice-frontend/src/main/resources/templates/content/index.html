@@ -72,6 +72,21 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="main-pannel">
 
+            <div class='row placeholders' id='time-limited-sales'>
+                <div class='panel panel-item'>
+                <div class='panel-heading'>
+                    <h3 class='panel-title'>Time-limited Sales</h3>
+                </div>
+                <div class='panel-body'>
+                    <div class="row">
+                        <span style="color: red; font-size: 22px;" id="countdownTime">00:00</span>
+                    </div>
+                    <div class="row placeholders" id="seckill-list">
+                    </div>
+                </div>
+            </div>
+            </div>
+
             <div class="row placeholders" id="item-list">
             </div>
             <!-- modal -->
@@ -229,6 +244,8 @@
 <script th:src="@{js/bootstrap.min.js}"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 <script th:src="@{js/holder.min.js}"></script>
+<script th:src="@{js/module/time.js}"></script>
+<script th:src="@{js/jquery.price_format.2.0.min.js}"></script>
 <script th:src="@{js/module/item.js}"></script>
 <script th:src="@{js/module/cart.js}"></script>
 
@@ -238,7 +255,10 @@
             $("#logoutForm").submit();
         });
         //ITEM.getAll(0,16);
-        ITEM.getItemCategorys([[${userDetails != null ? userDetails.getUsername() : ''}]]);
+        TIME.CountdownHour();
+        ITEM.load([[${userDetails != null ? userDetails.getUsername() : ''}]]);
+        ITEM.seckillList();
+        ITEM.getItemCategorys();
     });
 </script>
 </body>

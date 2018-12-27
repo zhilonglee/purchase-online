@@ -1,10 +1,10 @@
 package com.zhilong.springcloud.service;
 
 import com.zhilong.springcloud.entity.Item;
-import com.zhilong.springcloud.entity.ItemCategory;
+import com.zhilong.springcloud.entity.Seckill;
 import com.zhilong.springcloud.entity.dto.ItemSimpleTo;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -22,4 +22,8 @@ public interface ItemService {
     Item findById(Long id);
 
     Integer deductItemStockNum(Long id, Integer num);
+
+    List<Seckill> findRandItem();
+
+    ResponseEntity purchaseSecKill(Long itemId, String username);
 }

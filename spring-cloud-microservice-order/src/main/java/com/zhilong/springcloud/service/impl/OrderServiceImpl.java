@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
     OrderRepository orderRepository;
 
     @Override
-    public ResponseEntity generateOrder(CartItemTo cartItemTo) {
+    public ResponseEntity generateOrder(CartItemTo cartItemTo,Boolean isNormalOrder) {
 
         String tokenKey = PurchaseOnlieGlobalConstant.OAUTH2_TOKEN_IN_REDIS_PREFIX + cartItemTo.getUsername();
         TokenResponse tokenResponse = (TokenResponse)redisUtils.getObj(tokenKey);
@@ -57,48 +57,93 @@ public class OrderServiceImpl implements OrderService {
             order.setDisacountTotal(new BigDecimal(0));
             List<CartItem> cartItems = cartItemTo.getCartItems();
 
-            cartItems.forEach(cartItem -> {
-                // 1. add item into order
-                ResponseEntity itemResponse = itemFeginClient.item(cartItem.getId());
-                ObjectMapper objectMapper = new ObjectMapper();
-                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                try {
-                    OrderItem orderItem = objectMapper.readValue(itemResponse.getBody().toString(), OrderItem.class);
+            if (isNormalOrder.equals(true)) {
+                normalOrder(cartItemTo, order, cartItems);
+            } else {
+                seckillOrder(cartItemTo,order,cartItems);
+            }
 
-                    // This logic is processed if the item exists in DB and the item stock number is more than 1.
-                    if (orderItem != null && (orderItem.getStockNum() - cartItem.getNum()) > 0) {
-                        orderItem.setNum(cartItem.getNum());
-                        order.getOrderItems().add(orderItem);
-                        order.setTotal(order.getTotal().add(
-                                orderItem.getPrice().multiply(BigDecimal.valueOf(orderItem.getNum()))
-                        ));
-                        order.setDisacountTotal(order.getDisacountTotal().add(
-                                orderItem.getCurrentprice().multiply(BigDecimal.valueOf(orderItem.getNum()))
-                        ));
-                        orderItem.setStockNum(orderItem.getStockNum() - cartItem.getNum());
-                        // 2. delete item from cart
-                        itemFeginClient.deleteCartItem(cartItem.getId(), cartItem.getNum(), cartItemTo.getUsername());
-                        // 3. deduct item stock in DB
-                        itemFeginClient.itemDeductStockNum(orderItem.getId(),orderItem.getNum());
-                    }
-                } catch (IOException e) {
-                    logger.error("",e);
-                }
+            if ((cartItemTo.getCartItems().size() > 0)) {
+                // save order into DB
+                order.setOrderStatus(OrderStatus.PENDING);
+                order.setTransactionCode(DateFormatUtils.format(new Date(),PurchaseOnlieGlobalConstant.YYYYMMDDHHMMSSSSS));
+                orderInDb = orderRepository.save(order);
 
-            });
-
-            //4. save order into DB
-            order.setOrderStatus(OrderStatus.PENDING);
-            order.setTransactionCode(DateFormatUtils.format(new Date(),PurchaseOnlieGlobalConstant.YYYYMMDDHHMMSSSSS));
-            orderInDb = orderRepository.save(order);
+            } else {
+                return ResponseEntity.badRequest().body("Empty items.");
+            }
+        } else {
+            return ResponseEntity.badRequest().body("User is not online.");
         }
 
         return ResponseEntity.ok(orderInDb);
     }
 
+    private void normalOrder(CartItemTo cartItemTo, Order order, List<CartItem> cartItems) {
+        cartItems.forEach(cartItem -> {
+            // 1. add item into order
+            ResponseEntity itemResponse = itemFeginClient.item(cartItem.getId());
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            try {
+                OrderItem orderItem = objectMapper.readValue(itemResponse.getBody().toString(), OrderItem.class);
+
+                // This logic is processed if the item exists in DB and the item stock number is more than 1.
+                if (orderItem != null && (orderItem.getStockNum() - cartItem.getNum()) >= 0) {
+                    orderItem.setNum(cartItem.getNum());
+                    order.getOrderItems().add(orderItem);
+                    order.setTotal(order.getTotal().add(
+                            orderItem.getPrice().multiply(BigDecimal.valueOf(orderItem.getNum()))
+                    ));
+                    order.setDisacountTotal(order.getDisacountTotal().add(
+                            orderItem.getCurrentprice().multiply(BigDecimal.valueOf(orderItem.getNum()))
+                    ));
+                    orderItem.setStockNum(orderItem.getStockNum() - cartItem.getNum());
+                    // 2. delete item from cart
+                    itemFeginClient.deleteCartItem(cartItem.getId(), cartItem.getNum(), cartItemTo.getUsername());
+                    // 3. deduct item stock in DB
+                    itemFeginClient.itemDeductStockNum(orderItem.getId(),orderItem.getNum());
+                }
+            } catch (IOException e) {
+                logger.error("",e);
+            }
+
+        });
+    }
+
+    private void seckillOrder(CartItemTo cartItemTo, Order order, List<CartItem> cartItems) {
+        cartItems.forEach(cartItem -> {
+            // 1. add item into order
+            ResponseEntity itemResponse = itemFeginClient.secKillitem(cartItem.getId());
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            try {
+                OrderItem orderItem = objectMapper.readValue(itemResponse.getBody().toString(), OrderItem.class);
+
+                // This logic is processed if the item exists in DB and the item stock number is more than -1.
+                // because logic is deduct stock num first, so when the item sold out, the expression is
+                // orderItem.getStockNum() - cartItem.getNum()) >= -1
+                if (orderItem != null && (orderItem.getStockNum() - cartItem.getNum()) >= -1) {
+                    orderItem.setNum(cartItem.getNum());
+                    order.getOrderItems().add(orderItem);
+                    order.setTotal(order.getTotal().add(
+                            orderItem.getPrice().multiply(BigDecimal.valueOf(orderItem.getNum()))
+                    ));
+                    order.setDisacountTotal(order.getDisacountTotal().add(
+                            orderItem.getCurrentprice().multiply(BigDecimal.valueOf(orderItem.getNum()))
+                    ));
+                }
+            } catch (IOException e) {
+                logger.error("",e);
+            }
+        });
+    }
+
     @Override
     public ResponseEntity getOrderInfo(Long id) {
         Order order = orderRepository.findById(id).get();
-        return ResponseEntity.ok(order);
+        String tokenKey = PurchaseOnlieGlobalConstant.OAUTH2_TOKEN_IN_REDIS_PREFIX + order.getUsername();
+        TokenResponse tokenResponse = (TokenResponse)redisUtils.getObj(tokenKey);
+        return (tokenResponse != null ? ResponseEntity.ok(order) : ResponseEntity.ok(""));
     }
 }

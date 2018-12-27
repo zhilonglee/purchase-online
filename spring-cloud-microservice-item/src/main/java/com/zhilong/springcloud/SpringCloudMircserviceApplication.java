@@ -1,13 +1,17 @@
 package com.zhilong.springcloud;
 
+import com.zhilong.springcloud.service.RabbitMqService;
+import com.zhilong.springcloud.service.impl.RabbitMqServiceImpl;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -25,6 +29,16 @@ import java.security.cert.X509Certificate;
 @SpringBootApplication
 @EnableDiscoveryClient
 public class SpringCloudMircserviceApplication {
+
+    @Bean
+    public RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory){
+        return new RabbitAdmin(connectionFactory);
+    }
+
+    @Bean
+    public RabbitMqService rabbitMqService(RabbitTemplate rabbitTemplate, RabbitAdmin rabbitAdmin){
+        return new RabbitMqServiceImpl(rabbitTemplate, rabbitAdmin);
+    }
 
     @Bean
     public RestTemplate restTemplate() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {

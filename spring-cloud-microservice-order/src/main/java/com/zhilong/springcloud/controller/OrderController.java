@@ -19,7 +19,12 @@ public class OrderController {
 
     @PostMapping("/detail")
     public ResponseEntity generateOrder(@RequestBody CartItemTo cartItemTo){
-        return (cartItemTo.getCartItems().size() != 0 ? orderService.generateOrder(cartItemTo) : ResponseEntity.ok("No Items to process"));
+        return (cartItemTo.getCartItems().size() != 0 ? orderService.generateOrder(cartItemTo,true) : ResponseEntity.ok("No Items to process"));
+    }
+
+    @PostMapping("/seckill/detail")
+    public ResponseEntity generateSecKillOrder(@RequestBody CartItemTo cartItemTo){
+        return (cartItemTo.getCartItems().size() != 0 ? orderService.generateOrder(cartItemTo,false) : ResponseEntity.ok("No Items to process"));
     }
 
     @GetMapping("/detail/{id}")

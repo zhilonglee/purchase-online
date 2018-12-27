@@ -1,22 +1,23 @@
 package com.zhilong.springcloud.controller;
 
 import com.zhilong.springcloud.entity.Item;
-import com.zhilong.springcloud.entity.JsonResult;
 import com.zhilong.springcloud.entity.dto.ItemSimpleTo;
 import com.zhilong.springcloud.fegin.UploadFeginClient;
 import com.zhilong.springcloud.service.ItemService;
+import com.zhilong.springcloud.service.SeckillService;
+import com.zhilong.springcloud.utils.CalendarUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -27,6 +28,9 @@ public class ItemController {
 
     @Autowired
     ItemService itemService;
+
+    @Autowired
+    SeckillService seckillService;
 
     @Autowired
     UploadFeginClient uploadFeginClient;
@@ -90,6 +94,23 @@ public class ItemController {
     public ResponseEntity itemDeductStockNum( @PathVariable("id") Long id, Integer num){
         Integer deducted = itemService.deductItemStockNum(id, num);
         return ResponseEntity.ok(deducted);
+    }
+
+    @GetMapping("/limitedspike")
+    public ResponseEntity findRandItem() {
+        return ResponseEntity.ok(itemService.findRandItem());
+    }
+
+    @GetMapping("/limitedspike/{id}")
+    public ResponseEntity findSeckillItem(@PathVariable("id") Long id) {
+        Date startTime = CalendarUtils.getSharpClock();
+        Date endTime = CalendarUtils.addHourDate(startTime,1);
+        return ResponseEntity.ok(seckillService.findSeckillByItemIdAndStartTimeAndEndTime(id,startTime,endTime));
+    }
+
+    @PostMapping("/limitedspike")
+    public ResponseEntity purchaseSecKill(Long itemId, String username) {
+        return itemService.purchaseSecKill(itemId,username);
     }
 
 }

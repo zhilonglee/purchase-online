@@ -89,6 +89,12 @@ public class RedisUtils {
         redisTemplate.expire(key,timeout,unit);
     }
 
+    /**
+     * Get remaining expiring time(TTL)
+     * @param key
+     * @return
+     */
+    public Long getExpire(Object key) { return redisTemplate.getExpire(key); }
 
     /**
      * Get Keys Set using pattern

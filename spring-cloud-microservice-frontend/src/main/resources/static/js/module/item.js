@@ -1,10 +1,14 @@
 var ITEM = {
     request : {
         item_category_list_url : "http://192.168.137.10:8042/item/v1/category",
-        item_list_utl : "http://192.168.137.10:8042/item/v1/brief"
+        item_list_utl : "http://192.168.137.10:8042/item/v1/brief",
+        item_seckill_url : "http://192.168.137.10:8042/item/v1/limitedspike"
     },
     username : "",
     categoryId : [],
+    load : function(username){
+        ITEM.username = username;
+    },
     getAll : function (page, size) {
         var currentAttr = {};
         currentAttr.page = page;
@@ -45,8 +49,7 @@ var ITEM = {
             }
         });
     },
-    getItemCategorys : function (username) {
-        ITEM.username = username;
+    getItemCategorys : function () {
         $.ajax({
             url: ITEM.request.item_category_list_url,
             dataType: 'json',
@@ -58,7 +61,7 @@ var ITEM = {
             },
             success: function (data) {
                 $.each(data,function (i, value) {
-                    $("#main-pannel").prepend(
+                    $("#item-list").prepend(
                         "<div class='row placeholders' id='itemcategory-" + value.id + "'>" +
                         "<div class='panel panel-item'>" +
                         "<div class='panel-heading'>" +
@@ -133,5 +136,79 @@ var ITEM = {
                 window.location.href="/login.html";
             }
             CART.add2Cart(itemId, params);
+    },
+    seckillList : function () {
+        $.ajax({
+            url: ITEM.request.item_seckill_url,
+            dataType: 'json',
+            type: 'GET',
+            contentType: 'application/json;charset=UTF-8',
+            beforeSend: function (xhr) {
+                console.log("Request URL : " + ITEM.request.item_seckill_url);
+            },
+            success: function (data) {
+                $("#seckill-list").html("");
+                $.each(data,function (i,value) {
+                    var phgrah = $("<p></p>");
+                    var reducedAmount = value.currentprice;
+                    phgrah.html(reducedAmount.toFixed(2)).priceFormat({
+                        prefix: '￥ ',
+                        thousandsSeparator: ',',
+                        centsLimit: 2
+                    });
+                    $("#seckill-list").append(
+                        "<div class='col-xs-6 col-sm-3 placeholder'>" +
+                        "<img  class='img-responsive' src='" + (value.stockNum > 0 ? value.image : "/img/saleoff.png") + "'  alt='Generic placeholder thumbnail' width='200' height='200'>" +
+                        "<h4>" + value.title + "</h4>" +
+                        "<div class='price-sales'>" +
+                        "<span class='price'>" + phgrah.html() + "</span>" +
+                        "</div>"+
+                        "<span class='text-muted'>" + value.item_des + "</span>" +
+                        "<div><button type='button' onclick='ITEM.pruchaseSecKill(" + this.itemId + ")' itemId='" + this.id + "' class='btn btn-default btn-sm btn-xs cartbtn'>" +
+                        "Purchase Now"  +
+                        "</button>" +
+                        "</div>"
+                    );
+                });
+            },
+            error: function (xhr, errormsg) {
+                console.log("error msg : " + errormsg);
+            },
+            complete: function (xhr) {
+                console.log("xhr.readyState : " + xhr.readyState);
+                console.log("xhr.status : " + xhr.status);
+            }
+        });
+    },
+    pruchaseSecKill : function (itemId) {
+        var params = {};
+        params.username = ITEM.username;
+        params.itemId = itemId;
+        if (params.username == '') {
+            window.location.href="/login.html";
+        }
+        $.ajax({
+            url: ITEM.request.item_seckill_url + "?itemId=" + params.itemId + "&username=" + params.username,
+            dataType: 'json',
+            type: 'POST',
+            // data: params,
+            contentType: 'application/json;charset=UTF-8',
+            beforeSend: function (xhr) {
+                console.log("Request URL : " + ITEM.request.item_seckill_url );
+            },
+            success: function (data) {
+                alert(data.message);
+            },
+            error: function (XMLHttpRequest, errormsg) {
+                if (XMLHttpRequest.status == 403) {
+                    alert(XMLHttpRequest.responseText);
+                    ITEM.seckillList();
+                }
+            },
+            complete: function (xhr) {
+                console.log("xhr.readyState : " + xhr.readyState);
+                console.log("xhr.status : " + xhr.status);
+            }
+        });
     }
 };

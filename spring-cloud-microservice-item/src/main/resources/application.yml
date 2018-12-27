@@ -37,8 +37,17 @@ feign:
   client:
     config:
       default:
-        connectTimeout: 5000
-        readTimeout: 5000
+        connectTimeout: 10000
+        readTimeout: 10000
         loggerLevel: basic
   hystrix:
     enabled: true
+
+curator:
+  client:
+    retry:
+      count: 5
+      sleepMsBetweenRetries: 1000
+    connectString: 192.168.137.10:2181,192.168.137.10:2182,192.168.137.10:2183
+    connectionTimeoutMs: 5000
+    sessionTimeoutMs: 3000

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> , JpaSpecificationExecutor<Item> {
@@ -32,5 +33,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> , JpaSpecifica
     @Modifying(clearAutomatically = true)
     @Query(value = "UPDATE Item as a SET a.stockNum = a.stockNum - :num WHERE a.id = :id")
     Integer deductedItemStockNumById(@Param("id") Long id, @Param("num") Integer num);
+
+    @Query(value = "SELECT a.id,a.price*a.rate AS currentprice ,a.image,a.item_des,a.title,a.cat_id, a.stock_num AS stockNum,a.price " +
+            "FROM `tbl_item` AS a ORDER BY RAND() LIMIT 4 ", nativeQuery = true)
+    List<Map<String,Object>> findRandItem();
 
 }

@@ -26,8 +26,11 @@
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script th:src="@{js/holder.min.js}"></script>
     <script th:src="@{js/jquery.price_format.2.0.min.js}"></script>
-    <script th:src="@{js/module/cart.js}"></script>
+    <script th:src="@{js/module/order.js}"></script>
     <script th:inline="javascript">
+        $(function(){
+            ORDER.getOrderDetails();
+        });
     </script>
 </head>
 
@@ -37,7 +40,7 @@
     <div id="logo"><a href="/"><img  th:src="@{img/logo.png}" title="Return to Purchase Online Home Page" alt="Return to Purchase Online Home Page"></a></div>
 </div>
 
-<form id="orderForm" class="hide" action="/order/create.html" method="post">
+<form id="orderForm" class="hide" action="/payment.html" method="post">
 </form>
 
 <!-- main -->
@@ -163,28 +166,6 @@
                                         <div class="goods-list">
                                             <h4 class="vendor_name_h" id="0">Merchant: Purchase Online</h4>
                                             <div class="goods-suit goods-last">
-                                                    <div class="goods-item goods-item-extra">
-
-                                                        <div class="p-img">
-                                                            <a target="_blank" href="/item/${cart.id}.html">
-                                                                <img src="${cart.image}" alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="goods-msg">
-                                                            <div class="p-name">
-                                                                <a href="/item/${cart.id}.html" target="_blank">
-                                                                    TEST title
-                                                                </a>
-                                                            </div>
-                                                            <div class="p-price">
-                                                                <strong>￥800</strong>
-                                                                <span class="ml20"> x 4 </span>
-                                                                <span class="ml20 p-inventory" skuId="11555193">available</span>
-                                                            </div>
-                                                            <i class="p-icon p-icon-w"></i><span class="ftx-04">7 days no reason to refund</span>
-                                                        </div>
-                                                        <div class="clr"></div>
-                                                    </div>
                                             </div>
                                         </div>
                                         <!--goods-list end-->
@@ -234,7 +215,7 @@
 					<span>
 						Total merchandise value：
 					</span>
-                                <em class="price" id="warePriceId">¥ 800.00</em>
+                                <em class="price" id="warePriceId">¥ 0.00</em>
                             </div>
                             <div class="list">
                                 <span>Freight charge：</span> <em class="price" id="freightPriceId">
@@ -242,7 +223,7 @@
                             </div>
                             <div class="list">
                                 <span>Total payable：</span> <em class="price" id="sumPayPriceId">
-                                ￥800.00</em>
+                                ￥0.00</em>
                             </div>
                         </div>
                         <div class="clr"></div>
@@ -263,7 +244,7 @@
                                         id="order-submit"	onclick="$('#orderForm').submit()">
                                     Pay Now
                                 </button>
-                                <span class="total">Total payable：<strong id="payPriceId">￥800.00</strong>
+                                <span class="total">Total payable：<strong id="payPriceId">￥0.00</strong>
           </span>
                                 <span id="checkCodeDiv"></span>
                                 <div class="checkout-submit-tip" id="changeAreaAndPrice" style="display: none;">

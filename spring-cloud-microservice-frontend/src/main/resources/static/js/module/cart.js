@@ -47,7 +47,7 @@ var CART = {
                     '<div class="cell p-promotion">' +
                         '<div class="cell p-price"><span class="price">¥' + this.currentprice + '</span></div>' +
                         '</div>' +
-                        '<div class="cell p-inventory stock-11345721">available</div>' +
+                        '<div class="cell p-inventory>' + (this.stockNum > 0 ? 'available' : 'sell out') + '</div>' +
                         '<div class="cell p-quantity" for-stock="for-stock-11345721">' +
                         '<div class="quantity-form" data-bind="">' +
                         '<a href="javascript:void(0);" class="decrement" clstag="clickcart|keycount|xincart|diminish1" id="decrement">-</a>' +

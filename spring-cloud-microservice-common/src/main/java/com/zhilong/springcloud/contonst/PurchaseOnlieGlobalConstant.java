@@ -16,4 +16,7 @@ public class PurchaseOnlieGlobalConstant {
     public final static String OAUTH2_TOKEN_IN_REDIS_PREFIX = "access_token:";
 
     public final static String YYYYMMDDHHMMSSSSS = "yyyyMMddhhmmssSSS";
+
+    public final static String RABBITMQEXCHANGE_ITEM = "item";
+
 }
